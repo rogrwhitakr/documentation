@@ -1,0 +1,4 @@
+# we simply delist all web folders from git, no use
+django/
+color-picker/
+automate-the-boring-stuff/
