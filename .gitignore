@@ -2,3 +2,6 @@
 django/
 color-picker/
 automate-the-boring-stuff/
+
+# we exclude all txt files, maybe?
+!*.txt
