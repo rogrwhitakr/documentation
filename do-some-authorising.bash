@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 echo "changing permissions and such"
 
-sudo find . -type f -exec chmod 644 {} \; 
-sudo find . -type d -exec chmod 755 {} \;
+sudo find /var/www -type f -exec chmod 644 {} \; 
+sudo find /var/www -type d -exec chmod 755 {} \;
 
 # check apache logs
 sudo tail -f /var/log/httpd/access_log /var/log/httpd/error_log
