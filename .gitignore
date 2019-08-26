@@ -6,10 +6,8 @@ django/
 color-picker/
 
 
-# postgresql -> i need to specify /*, to include the files in the exclude
+# postgresql
 postgresql/*
-
-# explainers we want
 !postgresql/
 !postgresql/*.conf
 
@@ -23,3 +21,8 @@ postgresql/*
 automate-the-boring-stuff/*
 !automate-the-boring-stuff/
 !automate-the-boring-stuff/*[.html|.conf]
+
+# django
+django/*
+!django/
+!django/*.conf
