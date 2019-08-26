@@ -5,8 +5,6 @@ django/
 # color picker
 color-picker/
 
-# little harder to recreate, as i have manually chnages links in html 
-automate-the-boring-stuff/
 
 # postgresql -> i need to specify /*, to include the files in the exclude
 postgresql/*
@@ -16,10 +14,12 @@ postgresql/*
 !postgresql/*.conf
 
 # python
-# django
-!django/
-!**.conf
 
 # python cource: automate the boring stuff
 # i am keeping that because i manually edited the html
-!automate-the-boring-stuff/**.html
+# 1. exclude all files 
+# 2. include parent directory 
+# 3. include files in this directory 
+automate-the-boring-stuff/*
+!automate-the-boring-stuff/
+!automate-the-boring-stuff/*[.html|.conf]
