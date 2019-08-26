@@ -1,7 +1,6 @@
 # we delist all folders containing recreateable stuffs, and add an explainer (txt file) to describe reproduction
 # django and its source
 django/
-docs/
 
 # color picker
 color-picker/
@@ -9,6 +8,18 @@ color-picker/
 # little harder to recreate, as i have manually chnages links in html 
 automate-the-boring-stuff/
 
+# postgresql -> i need to specify /*, to include the files in the exclude
+postgresql/*
+
 # explainers we want
-!*.txt
 !postgresql/
+!postgresql/*.conf
+
+# python
+# django
+!django/
+!**.conf
+
+# python cource: automate the boring stuff
+# i am keeping that because i manually edited the html
+!automate-the-boring-stuff/**.html
