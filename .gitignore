@@ -11,4 +11,4 @@ automate-the-boring-stuff/
 
 # explainers we want
 !*.txt
-!postgresql/*.txt
+!postgresql/
