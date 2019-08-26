@@ -2,6 +2,9 @@
 django/
 color-picker/
 automate-the-boring-stuff/
+docs/
+postgresql/
 
 # we exclude all txt files, maybe?
+!postgresql/
 !*.txt
