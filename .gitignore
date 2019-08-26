@@ -1,10 +1,14 @@
-# we simply delist all web folders from git, no use
+# we delist all folders containing recreateable stuffs, and add an explainer (txt file) to describe reproduction
+# django and its source
 django/
-color-picker/
-automate-the-boring-stuff/
 docs/
-postgresql/
 
-# we exclude all txt files, maybe?
-!postgresql/
+# color picker
+color-picker/
+
+# little harder to recreate, as i have manually chnages links in html 
+automate-the-boring-stuff/
+
+# explainers we want
 !*.txt
+!postgresql/*.txt
