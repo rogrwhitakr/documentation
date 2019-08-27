@@ -1,0 +1,1591 @@
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="fb:pages" content="115407078489594">
+<meta name="description" content="Git ignore patterns are used to exclude certain files in your working directory from your Git history. They can be local, global, or shared with your team.">
+<meta name="author" content="Atlassian">
+<link rel="canonical" href="https://www.atlassian.com/git/tutorials/saving-changes/gitignore">
+<title>.gitignore file - ignoring files in Git | Atlassian Git Tutorial</title>
+<link rel="stylesheet" href="https://wac-cdn.atlassian.com/assets/build/css/gitguide/site.css?cdnVersion=534">
+<link rel="stylesheet" href="https://wac-cdn.atlassian.com/assets/build/css/gitguide/icons.css?cdnVersion=534" class="additional-css">
+<link rel="stylesheet" href="https://wac-cdn.atlassian.com/assets/build/css/gitguide/editmode.css?cdnVersion=534" class="additional-css">
+<link href="https://plus.google.com/+atlassian" rel="publisher">
+<link rel="alternate" href="https://www.atlassian.com/git/tutorials/saving-changes/gitignore" hreflang="x-default">
+<link rel="alternate" href="https://www.atlassian.com/git/tutorials/saving-changes/gitignore" hreflang="en">
+<link rel="alternate" href="https://www.atlassian.com/ja/git/tutorials/saving-changes/gitignore" hreflang="ja">
+<link rel="alternate" href="https://www.atlassian.com/fr/git/tutorials/saving-changes/gitignore" hreflang="fr">
+<link rel="alternate" href="https://www.atlassian.com/de/git/tutorials/saving-changes/gitignore" hreflang="de">
+<link rel="alternate" href="https://www.atlassian.com/es/git/tutorials/saving-changes/gitignore" hreflang="es">
+<link rel="alternate" href="https://www.atlassian.com/br/git/tutorials/saving-changes/gitignore" hreflang="pt-BR">
+<link rel="alternate" href="https://www.atlassian.com/zh/git/tutorials/saving-changes/gitignore" hreflang="zh-Hans">
+<link rel="alternate" href="https://www.atlassian.com/ko/git/tutorials/saving-changes/gitignore" hreflang="ko">
+<link rel="alternate" href="https://www.atlassian.com/ru/git/tutorials/saving-changes/gitignore" hreflang="ru">
+<link rel="alternate" href="https://www.atlassian.com/pl/git/tutorials/saving-changes/gitignore" hreflang="pl">
+<link rel="alternate" href="https://www.atlassian.com/it/git/tutorials/saving-changes/gitignore" hreflang="it">
+<link rel="alternate" href="https://www.atlassian.com/nl/git/tutorials/saving-changes/gitignore" hreflang="nl">
+<link rel="alternate" href="https://www.atlassian.com/fi/git/tutorials/saving-changes/gitignore" hreflang="fi">
+<link rel="alternate" href="https://www.atlassian.com/hu/git/tutorials/saving-changes/gitignore" hreflang="hu">
+<link rel="alternate" href="https://www.atlassian.com/ro/git/tutorials/saving-changes/gitignore" hreflang="ro">
+<link rel="alternate" href="https://www.atlassian.com/cs/git/tutorials/saving-changes/gitignore" hreflang="cs">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-152x152.png">
+<link rel="icon" type="image/png" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/favicon.png" sizes="32x32">
+<link rel="mask-icon" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/safari-pinned-tab.svg" color="#59afe1">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/mstile-144x144.png">
+<meta name="theme-color" content="#205081">
+<meta property="og:title" content=".gitignore file - ignoring files in Git | Atlassian Git Tutorial">
+<meta property="og:description" content="Git ignore patterns are used to exclude certain files in your working directory from your Git history. They can be local, global, or shared with your team.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.atlassian.com/git/tutorials/saving-changes/gitignore">
+<meta property="og:site_name" content="Atlassian">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Atlassian">
+<script type="text/javascript" async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5RJSBR&amp;l=dataLayer"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" id="analytics-js" async="" src="https://cdn.segment.com/analytics.js/v1/kiv6wyh2nw/analytics.min.js"></script><script src="https://js-agent.newrelic.com/nr-spa-1130.min.js"></script><script src="https://wac-cdn.atlassian.com/assets/build/js/jquery.min.js?cdnVersion=534"></script>
+<script type="text/javascript">
+/**
+* function to load external js through javascript.
+*
+* @param url - javascript url
+* @param location - location of the dom (e.g. document.head)
+*/
+var loadExternalJS = function(url, location, callback){
+var scriptTag = document.createElement('script');
+scriptTag.src = url;
+scriptTag.type = 'text/javascript';
+/* Then bind the event to the callback function.
+There are several events for cross browser compatibility. */
+scriptTag.onreadystatechange = callback;
+scriptTag.onload = callback;
+/* Fire the loading */
+location.appendChild(scriptTag);
+};
+</script>
+<!-- OneTrust Cookies Consent Notice (Production CDN, www.atlassian.com, en-GB) start -->
+<script src="https://cdn.cookielaw.org/consent/141bbadf-8293-4d74-9552-81ec52e16c66.js" type="text/javascript" charset="UTF-8"></script><link type="text/css" href="https://cdn.cookielaw.org/skins/4.3.3/default_flat_bottom_two_button_black/v2/css/optanon.css" rel="stylesheet"><style>#optanon ul#optanon-menu li { background-color:  !important }#optanon ul#optanon-menu li.menu-item-selected { background-color:  !important }#optanon #optanon-popup-wrapper .optanon-white-button-middle { background-color: #FFAB00 !important }.optanon-alert-box-wrapper .optanon-alert-box-button-middle { background-color: #FFAB00 !important; border-color: #FFAB00 !important; }#optanon #optanon-popup-wrapper .optanon-white-button-middle button { color: #ffffff !important }.optanon-alert-box-wrapper .optanon-alert-box-button-middle button { color: #ffffff !important }#optanon #optanon-popup-bottom { background-color: #172B4D !important }#optanon.modern #optanon-popup-top, #optanon.modern #optanon-popup-body-left-shading { background-color: #172B4D !important }.optanon-alert-box-wrapper { background-color:#172B4D !important }.optanon-alert-box-wrapper .optanon-alert-box-bg p { color:#FFFFFF !important }#optanon, #optanon *, #optanon div, #optanon span, #optanon ul, #optanon li, #optanon a, #optanon p, .optanon-alert-box-wrapper * {
+font-family: LLCircularWeb,"Helvetica Neue",Helvetica,sans-serif;
+}
+
+
+#optanon #optanon-popup-body h2 {
+    position: absolute;
+    top: -55px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin: 5px 0px 0px 5px;
+}
+#optanon #optanon-popup-body .legacy-preference-banner-title {
+    margin: 5px 0px 0px 5px;
+    padding: 0px;
+    color: #ffffff;
+}
+#optanon #optanon-popup-wrapper .optanon-white-button-middle a {
+    color: #000000 !important; 
+}
+.optanon-alert-box-wrapper .optanon-alert-box-button-middle a {
+    color: #000000 !important;
+}
+.optanon-alert-box-wrapper a {
+    color: #ffffff !important; 
+    text-indent: 1;
+   font-weight: bold; 
+  
+}
+
+.optanon-alert-box-button-middle, #optanon #optanon-popup-wrapper .optanon-white-button-middle {
+   border-radius: 4px;
+}
+.optanon-alert-box-wrapper {
+    margin: 4px;
+    border-radius: 4px;
+    width: 99.5%;
+}
+
+#optanon.modern #optanon-popup-top, #optanon.modern #optanon-popup-body-left-shading
+{
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+#optanon #optanon-popup-bottom {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+#optanon #optanon-popup-bottom-logo:after {
+    content: 'OneTrust';
+    color: #ffffff;
+}
+#optanon #optanon-popup-bottom-logo:before {
+    content: 'Powered by';
+    color: #ffffff;
+}
+.optanon-alert-box-wrapper .optanon-button-more .optanon-alert-box-button-middle a:before {
+    content: '';
+}
+.optanon-alert-box-wrapper .optanon-button-allow .optanon-alert-box-button-middle a:before {
+    content: '';
+}
+#optanon #optanon-popup-top .optanon-close, .optanon-alert-box-wrapper .optanon-alert-box-corner-close a {
+    right: 10px;
+}
+ @media only screen and (max-width: 47em) {
+ .optanon-alert-box-wrapper.hide-cookie-setting-button .optanon-alert-box-body {
+    margin-right: auto;
+    padding-right: 5px;
+}
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+function OptanonWrapper() { }
+</script>
+<!-- OneTrust Cookies Consent Notice (Production CDN, www.atlassian.com, en-GB) end -->
+<script type="text/javascript">
+var LOCALIZED_PRICING_CONTENTFUL_SPACE = "3s3v3nq72la0";
+var LOCALIZED_PRICING_CONTENTFUL_ENVIRONMENT = "master";
+var LOCALIZED_PRICING_CONTENTFUL_ACCESS_TOKEN = "b9c3ea8d9c664146e9c7dd136a1d40ff8415715c3ef8ee222536f36fb2056613";
+var LOCALIZED_PRICING_USE_GEO_CURRENCY = true;
+</script>
+<script type="text/javascript">
+window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e,n){function r(t){try{s.console&&console.log(t)}catch(e){}}var o,i=t("ee"),a=t(23),s={};try{o=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(s.console=!0,o.indexOf("dev")!==-1&&(s.dev=!0),o.indexOf("nr_dev")!==-1&&(s.nrDev=!0))}catch(c){}s.nrDev&&i.on("internal-error",function(t){r(t.stack)}),s.dev&&i.on("fn-err",function(t,e,n){r(n.stack)}),s.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(s,function(t,e){return t}).join(", ")))},{}],2:[function(t,e,n){function r(t,e,n,r,s){try{l?l-=1:o(s||new UncaughtException(t,e,n),!0)}catch(f){try{i("ierr",[f,c.now(),!0])}catch(d){}}return"function"==typeof u&&u.apply(this,a(arguments))}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function o(t,e){var n=e?null:c.now();i("err",[t,n])}var i=t("handle"),a=t(24),s=t("ee"),c=t("loader"),f=t("gos"),u=window.onerror,d=!1,p="nr@seenError",l=0;c.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(h){"stack"in h&&(t(13),t(12),"addEventListener"in window&&t(6),c.xhrWrappable&&t(14),d=!0)}s.on("fn-start",function(t,e,n){d&&(l+=1)}),s.on("fn-err",function(t,e,n){d&&!n[p]&&(f(n,p,function(){return!0}),this.thrown=!0,o(n))}),s.on("fn-end",function(){d&&!this.thrown&&l>0&&(l-=1)}),s.on("internal-error",function(t){i("ierr",[t,c.now(),!0])})},{}],3:[function(t,e,n){t("loader").features.ins=!0},{}],4:[function(t,e,n){function r(){j++,L=y.hash,this[u]=x.now()}function o(){j--,y.hash!==L&&i(0,!0);var t=x.now();this[h]=~~this[h]+t-this[u],this[d]=t}function i(t,e){E.emit("newURL",[""+y,e])}function a(t,e){t.on(e,function(){this[e]=x.now()})}var s="-start",c="-end",f="-body",u="fn"+s,d="fn"+c,p="cb"+s,l="cb"+c,h="jsTime",m="fetch",v="addEventListener",w=window,y=w.location,x=t("loader");if(w[v]&&x.xhrWrappable){var g=t(10),b=t(11),E=t(8),R=t(6),O=t(13),C=t(7),P=t(14),T=t(9),N=t("ee"),S=N.get("tracer");t(16),x.features.spa=!0;var L,j=0;N.on(u,r),N.on(p,r),N.on(d,o),N.on(l,o),N.buffer([u,d,"xhr-done","xhr-resolved"]),R.buffer([u]),O.buffer(["setTimeout"+c,"clearTimeout"+s,u]),P.buffer([u,"new-xhr","send-xhr"+s]),C.buffer([m+s,m+"-done",m+f+s,m+f+c]),E.buffer(["newURL"]),g.buffer([u]),b.buffer(["propagate",p,l,"executor-err","resolve"+s]),S.buffer([u,"no-"+u]),T.buffer(["new-jsonp","cb-start","jsonp-error","jsonp-end"]),a(P,"send-xhr"+s),a(N,"xhr-resolved"),a(N,"xhr-done"),a(C,m+s),a(C,m+"-done"),a(T,"new-jsonp"),a(T,"jsonp-end"),a(T,"cb-start"),E.on("pushState-end",i),E.on("replaceState-end",i),w[v]("hashchange",i,!0),w[v]("load",i,!0),w[v]("popstate",function(){i(0,j>1)},!0)}},{}],5:[function(t,e,n){function r(t){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var o=t("ee"),i=t("handle"),a=t(13),s=t(12),c="learResourceTimings",f="addEventListener",u="resourcetimingbufferfull",d="bstResource",p="resource",l="-start",h="-end",m="fn"+l,v="fn"+h,w="bstTimer",y="pushState",x=t("loader");x.features.stn=!0,t(8);var g=NREUM.o.EV;o.on(m,function(t,e){var n=t[0];n instanceof g&&(this.bstStart=x.now())}),o.on(v,function(t,e){var n=t[0];n instanceof g&&i("bst",[n,e,this.bstStart,x.now()])}),a.on(m,function(t,e,n){this.bstStart=x.now(),this.bstType=n}),a.on(v,function(t,e){i(w,[e,this.bstStart,x.now(),this.bstType])}),s.on(m,function(){this.bstStart=x.now()}),s.on(v,function(t,e){i(w,[e,this.bstStart,x.now(),"requestAnimationFrame"])}),o.on(y+l,function(t){this.time=x.now(),this.startPath=location.pathname+location.hash}),o.on(y+h,function(t){i("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),f in window.performance&&(window.performance["c"+c]?window.performance[f](u,function(t){i(d,[window.performance.getEntriesByType(p)]),window.performance["c"+c]()},!1):window.performance[f]("webkit"+u,function(t){i(d,[window.performance.getEntriesByType(p)]),window.performance["webkitC"+c]()},!1)),document[f]("scroll",r,{passive:!0}),document[f]("keypress",r,!1),document[f]("click",r,!1)}},{}],6:[function(t,e,n){function r(t){for(var e=t;e&&!e.hasOwnProperty(u);)e=Object.getPrototypeOf(e);e&&o(e)}function o(t){s.inPlace(t,[u,d],"-",i)}function i(t,e){return t[1]}var a=t("ee").get("events"),s=t(26)(a,!0),c=t("gos"),f=XMLHttpRequest,u="addEventListener",d="removeEventListener";e.exports=a,"getPrototypeOf"in Object?(r(document),r(window),r(f.prototype)):f.prototype.hasOwnProperty(u)&&(o(window),o(f.prototype)),a.on(u+"-start",function(t,e){var n=t[1],r=c(n,"nr@wrapped",function(){function t(){if("function"==typeof n.handleEvent)return n.handleEvent.apply(n,arguments)}var e={object:t,"function":n}[typeof n];return e?s(e,"fn-",null,e.name||"anonymous"):n});this.wrapped=t[1]=r}),a.on(d+"-start",function(t){t[1]=this.wrapped||t[1]})},{}],7:[function(t,e,n){function r(t,e,n){var r=t[e];"function"==typeof r&&(t[e]=function(){var t=r.apply(this,arguments);return o.emit(n+"start",arguments,t),t.then(function(e){return o.emit(n+"end",[null,e],t),e},function(e){throw o.emit(n+"end",[e],t),e})})}var o=t("ee").get("fetch"),i=t(23);e.exports=o;var a=window,s="fetch-",c=s+"body-",f=["arrayBuffer","blob","json","text","formData"],u=a.Request,d=a.Response,p=a.fetch,l="prototype";u&&d&&p&&(i(f,function(t,e){r(u[l],e,c),r(d[l],e,c)}),r(a,"fetch",s),o.on(s+"end",function(t,e){var n=this;if(e){var r=e.headers.get("content-length");null!==r&&(n.rxSize=r),o.emit(s+"done",[null,e],n)}else o.emit(s+"done",[t],n)}))},{}],8:[function(t,e,n){var r=t("ee").get("history"),o=t(26)(r);e.exports=r;var i=window.history&&window.history.constructor&&window.history.constructor.prototype,a=window.history;i&&i.pushState&&i.replaceState&&(a=i),o.inPlace(a,["pushState","replaceState"],"-")},{}],9:[function(t,e,n){function r(t){function e(){c.emit("jsonp-end",[],p),t.removeEventListener("load",e,!1),t.removeEventListener("error",n,!1)}function n(){c.emit("jsonp-error",[],p),c.emit("jsonp-end",[],p),t.removeEventListener("load",e,!1),t.removeEventListener("error",n,!1)}var r=t&&"string"==typeof t.nodeName&&"script"===t.nodeName.toLowerCase();if(r){var o="function"==typeof t.addEventListener;if(o){var a=i(t.src);if(a){var u=s(a),d="function"==typeof u.parent[u.key];if(d){var p={};f.inPlace(u.parent,[u.key],"cb-",p),t.addEventListener("load",e,!1),t.addEventListener("error",n,!1),c.emit("new-jsonp",[t.src],p)}}}}}function o(){return"addEventListener"in window}function i(t){var e=t.match(u);return e?e[1]:null}function a(t,e){var n=t.match(p),r=n[1],o=n[3];return o?a(o,e[r]):e[r]}function s(t){var e=t.match(d);return e&&e.length>=3?{key:e[2],parent:a(e[1],window)}:{key:t,parent:window}}var c=t("ee").get("jsonp"),f=t(26)(c);if(e.exports=c,o()){var u=/[?&](?:callback|cb)=([^&#]+)/,d=/(.*)\.([^.]+)/,p=/^(\w+)(\.|$)(.*)$/,l=["appendChild","insertBefore","replaceChild"];Node&&Node.prototype&&Node.prototype.appendChild?f.inPlace(Node.prototype,l,"dom-"):(f.inPlace(HTMLElement.prototype,l,"dom-"),f.inPlace(HTMLHeadElement.prototype,l,"dom-"),f.inPlace(HTMLBodyElement.prototype,l,"dom-")),c.on("dom-start",function(t){r(t[0])})}},{}],10:[function(t,e,n){var r=t("ee").get("mutation"),o=t(26)(r),i=NREUM.o.MO;e.exports=r,i&&(window.MutationObserver=function(t){return this instanceof i?new i(o(t,"fn-")):i.apply(this,arguments)},MutationObserver.prototype=i.prototype)},{}],11:[function(t,e,n){function r(t){var e=a.context(),n=s(t,"executor-",e),r=new f(n);return a.context(r).getCtx=function(){return e},a.emit("new-promise",[r,e],e),r}function o(t,e){return e}var i=t(26),a=t("ee").get("promise"),s=i(a),c=t(23),f=NREUM.o.PR;e.exports=a,f&&(window.Promise=r,["all","race"].forEach(function(t){var e=f[t];f[t]=function(n){function r(t){return function(){a.emit("propagate",[null,!o],i),o=o||!t}}var o=!1;c(n,function(e,n){Promise.resolve(n).then(r("all"===t),r(!1))});var i=e.apply(f,arguments),s=f.resolve(i);return s}}),["resolve","reject"].forEach(function(t){var e=f[t];f[t]=function(t){var n=e.apply(f,arguments);return t!==n&&a.emit("propagate",[t,!0],n),n}}),f.prototype["catch"]=function(t){return this.then(null,t)},f.prototype=Object.create(f.prototype,{constructor:{value:r}}),c(Object.getOwnPropertyNames(f),function(t,e){try{r[e]=f[e]}catch(n){}}),a.on("executor-start",function(t){t[0]=s(t[0],"resolve-",this),t[1]=s(t[1],"resolve-",this)}),a.on("executor-err",function(t,e,n){t[1](n)}),s.inPlace(f.prototype,["then"],"then-",o),a.on("then-start",function(t,e){this.promise=e,t[0]=s(t[0],"cb-",this),t[1]=s(t[1],"cb-",this)}),a.on("then-end",function(t,e,n){this.nextPromise=n;var r=this.promise;a.emit("propagate",[r,!0],n)}),a.on("cb-end",function(t,e,n){a.emit("propagate",[n,!0],this.nextPromise)}),a.on("propagate",function(t,e,n){this.getCtx&&!e||(this.getCtx=function(){if(t instanceof Promise)var e=a.context(t);return e&&e.getCtx?e.getCtx():this})}),r.toString=function(){return""+f})},{}],12:[function(t,e,n){var r=t("ee").get("raf"),o=t(26)(r),i="equestAnimationFrame";e.exports=r,o.inPlace(window,["r"+i,"mozR"+i,"webkitR"+i,"msR"+i],"raf-"),r.on("raf-start",function(t){t[0]=o(t[0],"fn-")})},{}],13:[function(t,e,n){function r(t,e,n){t[0]=a(t[0],"fn-",null,n)}function o(t,e,n){this.method=n,this.timerDuration=isNaN(t[1])?0:+t[1],t[0]=a(t[0],"fn-",this,n)}var i=t("ee").get("timer"),a=t(26)(i),s="setTimeout",c="setInterval",f="clearTimeout",u="-start",d="-";e.exports=i,a.inPlace(window,[s,"setImmediate"],s+d),a.inPlace(window,[c],c+d),a.inPlace(window,[f,"clearImmediate"],f+d),i.on(c+u,r),i.on(s+u,o)},{}],14:[function(t,e,n){function r(t,e){d.inPlace(e,["onreadystatechange"],"fn-",s)}function o(){var t=this,e=u.context(t);t.readyState>3&&!e.resolved&&(e.resolved=!0,u.emit("xhr-resolved",[],t)),d.inPlace(t,y,"fn-",s)}function i(t){x.push(t),h&&(b?b.then(a):v?v(a):(E=-E,R.data=E))}function a(){for(var t=0;t<x.length;t++)r([],x[t]);x.length&&(x=[])}function s(t,e){return e}function c(t,e){for(var n in t)e[n]=t[n];return e}t(6);var f=t("ee"),u=f.get("xhr"),d=t(26)(u),p=NREUM.o,l=p.XHR,h=p.MO,m=p.PR,v=p.SI,w="readystatechange",y=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],x=[];e.exports=u;var g=window.XMLHttpRequest=function(t){var e=new l(t);try{u.emit("new-xhr",[e],e),e.addEventListener(w,o,!1)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}return e};if(c(l,g),g.prototype=l.prototype,d.inPlace(g.prototype,["open","send"],"-xhr-",s),u.on("send-xhr-start",function(t,e){r(t,e),i(e)}),u.on("open-xhr-start",r),h){var b=m&&m.resolve();if(!v&&!m){var E=1,R=document.createTextNode(E);new h(a).observe(R,{characterData:!0})}}else f.on("fn-end",function(t){t[0]&&t[0].type===w||a()})},{}],15:[function(t,e,n){function r(){var t=window.NREUM,e=t.info.accountID||null,n=t.info.agentID||null,r=t.info.trustKey||null,i="btoa"in window&&"function"==typeof window.btoa;if(!e||!n||!i)return null;var a={v:[0,1],d:{ty:"Browser",ac:e,ap:n,id:o.generateCatId(),tr:o.generateCatId(),ti:Date.now()}};return r&&e!==r&&(a.d.tk=r),btoa(JSON.stringify(a))}var o=t(21);e.exports={generateTraceHeader:r}},{}],16:[function(t,e,n){function r(t){var e=this.params,n=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;r<l;r++)t.removeEventListener(p[r],this.listener,!1);e.aborted||(n.duration=s.now()-this.startTime,this.loadCaptureCalled||4!==t.readyState?null==e.status&&(e.status=0):a(this,t),n.cbTime=this.cbTime,d.emit("xhr-done",[t],t),c("xhr",[e,n,this.startTime]))}}function o(t,e){var n=t.responseType;if("json"===n&&null!==e)return e;var r="arraybuffer"===n||"blob"===n||"json"===n?t.response:t.responseText;return v(r)}function i(t,e){var n=f(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}function a(t,e){t.params.status=e.status;var n=o(e,t.lastSize);if(n&&(t.metrics.rxSize=n),t.sameOrigin){var r=e.getResponseHeader("X-NewRelic-App-Data");r&&(t.params.cat=r.split(", ").pop())}t.loadCaptureCalled=!0}var s=t("loader");if(s.xhrWrappable){var c=t("handle"),f=t(17),u=t(15).generateTraceHeader,d=t("ee"),p=["load","error","abort","timeout"],l=p.length,h=t("id"),m=t(20),v=t(19),w=window.XMLHttpRequest;s.features.xhr=!0,t(14),d.on("new-xhr",function(t){var e=this;e.totalCbs=0,e.called=0,e.cbTime=0,e.end=r,e.ended=!1,e.xhrGuids={},e.lastSize=null,e.loadCaptureCalled=!1,t.addEventListener("load",function(n){a(e,t)},!1),m&&(m>34||m<10)||window.opera||t.addEventListener("progress",function(t){e.lastSize=t.loaded},!1)}),d.on("open-xhr-start",function(t){this.params={method:t[0]},i(this,t[1]),this.metrics={}}),d.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid);var n=!1;if("init"in NREUM&&"distributed_tracing"in NREUM.init&&(n=!!NREUM.init.distributed_tracing.enabled),n&&this.sameOrigin){var r=u();r&&e.setRequestHeader("newrelic",r)}}),d.on("send-xhr-start",function(t,e){var n=this.metrics,r=t[0],o=this;if(n&&r){var i=v(r);i&&(n.txSize=i)}this.startTime=s.now(),this.listener=function(t){try{"abort"!==t.type||o.loadCaptureCalled||(o.params.aborted=!0),("load"!==t.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof e.onload))&&o.end(e)}catch(n){try{d.emit("internal-error",[n])}catch(r){}}};for(var a=0;a<l;a++)e.addEventListener(p[a],this.listener,!1)}),d.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),d.on("xhr-load-added",function(t,e){var n=""+h(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),d.on("xhr-load-removed",function(t,e){var n=""+h(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),d.on("addEventListener-end",function(t,e){e instanceof w&&"load"===t[0]&&d.emit("xhr-load-added",[t[1],t[2]],e)}),d.on("removeEventListener-end",function(t,e){e instanceof w&&"load"===t[0]&&d.emit("xhr-load-removed",[t[1],t[2]],e)}),d.on("fn-start",function(t,e,n){e instanceof w&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=s.now()))}),d.on("fn-end",function(t,e){this.xhrCbStart&&d.emit("xhr-cb-time",[s.now()-this.xhrCbStart,this.onload,e],e)})}},{}],17:[function(t,e,n){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname);var i=!e.protocol||":"===e.protocol||e.protocol===n.protocol,a=e.hostname===document.domain&&e.port===n.port;return r.sameOrigin=i&&(!e.hostname||a),r}},{}],18:[function(t,e,n){function r(){}function o(t,e,n){return function(){return i(t,[f.now()].concat(s(arguments)),e?null:this,n),e?void 0:this}}var i=t("handle"),a=t(23),s=t(24),c=t("ee").get("tracer"),f=t("loader"),u=NREUM;"undefined"==typeof window.newrelic&&(newrelic=u);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){u[e]=o(p+e,!0,"api")}),u.addPageAction=o(p+"addPageAction",!0),u.setCurrentRouteName=o(p+"routeName",!0),e.exports=newrelic,u.interaction=function(){return(new r).get()};var h=r.prototype={createTracer:function(t,e){var n={},r=this,o="function"==typeof e;return i(l+"tracer",[f.now(),t,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[f.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){h[e]=o(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),i("err",[t,f.now(),!1,e])}},{}],19:[function(t,e,n){e.exports=function(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(e){return}}}},{}],20:[function(t,e,n){var r=0,o=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);o&&(r=+o[1]),e.exports=r},{}],21:[function(t,e,n){function r(){function t(){return e?15&e[n++]:16*Math.random()|0}var e=null,n=0,r=window.crypto||window.msCrypto;r&&r.getRandomValues&&(e=r.getRandomValues(new Uint8Array(31)));for(var o,i="xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",a="",s=0;s<i.length;s++)o=i[s],"x"===o?a+=t().toString(16):"y"===o?(o=3&t()|8,a+=o.toString(16)):a+=o;return a}function o(){function t(){return e?15&e[n++]:16*Math.random()|0}var e=null,n=0,r=window.crypto||window.msCrypto;r&&r.getRandomValues&&Uint8Array&&(e=r.getRandomValues(new Uint8Array(31)));for(var o=[],i=0;i<16;i++)o.push(t().toString(16));return o.join("")}e.exports={generateUuid:r,generateCatId:o}},{}],22:[function(t,e,n){function r(t,e){if(!o)return!1;if(t!==o)return!1;if(!e)return!0;if(!i)return!1;for(var n=i.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var s=navigator.userAgent,c=s.match(a);c&&s.indexOf("Chrome")===-1&&s.indexOf("Chromium")===-1&&(o="Safari",i=c[1])}e.exports={agent:o,version:i,match:r}},{}],23:[function(t,e,n){function r(t,e){var n=[],r="",i=0;for(r in t)o.call(t,r)&&(n[i]=e(r,t[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],24:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(o<0?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=r},{}],25:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],26:[function(t,e,n){function r(t){return!(t&&t instanceof Function&&t.apply&&!t[a])}var o=t("ee"),i=t(24),a="nr@original",s=Object.prototype.hasOwnProperty,c=!1;e.exports=function(t,e){function n(t,e,n,o){function nrWrapper(){var r,a,s,c;try{a=this,r=i(arguments),s="function"==typeof n?n(r,a):n||{}}catch(f){p([f,"",[r,a,o],s])}u(e+"start",[r,a,o],s);try{return c=t.apply(a,r)}catch(d){throw u(e+"err",[r,a,d],s),d}finally{u(e+"end",[r,a,c],s)}}return r(t)?t:(e||(e=""),nrWrapper[a]=t,d(t,nrWrapper),nrWrapper)}function f(t,e,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<e.length;c++)s=e[c],a=t[s],r(a)||(t[s]=n(a,f?s+o:o,i,s))}function u(n,r,o){if(!c||e){var i=c;c=!0;try{t.emit(n,r,o,e)}catch(a){p([a,n,r,o])}c=i}}function d(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){p([r])}for(var o in t)s.call(t,o)&&(e[o]=t[o]);return e}function p(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=o),n.inPlace=f,n.flag=a,n}},{}],ee:[function(t,e,n){function r(){}function o(t){function e(t){return t&&t instanceof r?t:t?c(t,s,i):i()}function n(n,r,o,i){if(!p.aborted||i){t&&t(n,r,o);for(var a=e(o),s=m(n),c=s.length,f=0;f<c;f++)s[f].apply(a,r);var d=u[x[n]];return d&&d.push([g,n,r,a]),a}}function l(t,e){y[t]=m(t).concat(e)}function h(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function m(t){return y[t]||[]}function v(t){return d[t]=d[t]||o(n)}function w(t,e){f(t,function(t,n){e=e||"feature",x[n]=e,e in u||(u[e]=[])})}var y={},x={},g={on:l,addEventListener:l,removeEventListener:h,emit:n,get:v,listeners:m,context:e,buffer:w,abort:a,aborted:!1};return g}function i(){return new r}function a(){(u.api||u.feature)&&(p.aborted=!0,u=p.backlog={})}var s="nr@context",c=t("gos"),f=t(23),u={},d={},p=e.exports=o();p.backlog=u},{}],gos:[function(t,e,n){function r(t,e,n){if(o.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[e]=r,r}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){o.buffer([t],r),o.emit(t,e,n)}var o=t("ee").get("handle");e.exports=r,r.ee=o},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!E++){var t=b.info=NREUM.info,e=l.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();f(x,function(e,n){t[e]||(t[e]=n)}),c("mark",["onload",a()+b.offset],null,"api");var n=l.createElement("script");n.src="https://"+t.agent,e.parentNode.insertBefore(n,e)}}function o(){"complete"===l.readyState&&i()}function i(){c("mark",["domContent",a()+b.offset],null,"api")}function a(){return R.exists&&performance.now?Math.round(performance.now()):(s=Math.max((new Date).getTime(),s))-b.offset}var s=(new Date).getTime(),c=t("handle"),f=t(23),u=t("ee"),d=t(22),p=window,l=p.document,h="addEventListener",m="attachEvent",v=p.XMLHttpRequest,w=v&&v.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:v,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var y=""+location,x={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-spa-1130.min.js"},g=v&&w&&w[h]&&!/CriOS/.test(navigator.userAgent),b=e.exports={offset:s,now:a,origin:y,features:{},xhrWrappable:g,userAgent:d};t(18),l[h]?(l[h]("DOMContentLoaded",i,!1),p[h]("load",r,!1)):(l[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",s],null,"api");var E=0,R=t(25)},{}]},{},["loader",2,16,5,3,4]);
+;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"4558326637",applicationID:"388202469",sa:1}
+</script>
+<style data-styled-components=""></style><style data-emotion=""></style></head>
+<body id="gitignore" class="wac git tutorials saving-changes gitignore scrolled hoverable content-loaded"><div class="optanon-alert-box-wrapper  " role="alertdialog" aria-labelledby="alert-box-title" aria-describedby="alert-box-message" style="bottom: 0px;"><div class="optanon-alert-box-bottom-top"><div class="optanon-alert-box-corner-close"><button class="optanon-alert-box-close banner-close-button" aria-label="Close" title="Close" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Banner Close Button');" tabindex="4"></button></div></div><div class="optanon-alert-box-bg"><div class="optanon-alert-box-logo"> </div><div class="optanon-alert-box-body"><p class="optanon-alert-box-title legacy-banner-title sr-only" id="alert-box-title" role="heading" aria-level="2">Cookie Notice</p><p class="banner-content" id="alert-box-message">This site uses cookies to improve your browsing experience, perform analytics and research, and conduct advertising. To change your preferences, click Cookie Settings. Otherwise, clicking on the the website, closing the banner, or clicking Accept all Cookies indicates you agree to our use of cookies on your device.    <a href="https://www.atlassian.com/legal/cookies" class="banner-policy-link" tabindex="1" aria-label="Atlassian Cookies and Tracking Notice">Atlassian Cookies and Tracking Notice</a></p></div><div class="optanon-clearfix"></div><div class="optanon-alert-box-button-container"><div class="optanon-alert-box-button optanon-button-close"><div class="optanon-alert-box-button-middle"><button class="optanon-alert-box-close" aria-label="Close">Close</button></div></div><div class="optanon-alert-box-button optanon-button-allow"><div class="optanon-alert-box-button-middle accept-cookie-container"><button class="optanon-allow-all accept-cookies-button" title="Accept all Cookies" aria-label="Accept all Cookies" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Banner Accept Cookies');" tabindex="3">Accept all Cookies</button></div></div><div class="optanon-alert-box-button optanon-button-more"><div class="optanon-alert-box-button-middle"><button class="optanon-toggle-display cookie-settings-button" title="Cookie Settings" aria-label="Cookie Settings" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Banner Open Preferences');" tabindex="2">Cookie Settings</button></div></div></div><div class="optanon-clearfix optanon-alert-box-bottom-padding"></div></div></div><div id="optanon" class="modern"><div id="optanon-popup-bg"></div><div id="optanon-popup-wrapper" role="dialog" aria-modal="true" tabindex="-1"><div id="optanon-popup-top"><button onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Preferences Close Button');" aria-label="Close" class="optanon-close-link optanon-close optanon-close-ui" title="Close"><div id="optanon-close" style="background: url(https://cdn.cookielaw.org/skins/4.3.3/default_flat_bottom_two_button_black/v2/images/optanon-pop-up-close.png);width:34px;height:34px;"></div></button></div><div id="optanon-popup-body"><div id="optanon-popup-body-left"><div id="optanon-popup-body-left-shading"></div><div id="optanon-branding-top-logo" style="background-image: url('https://cdn.cookielaw.org/logos/5878/5878:atlassian.com/Atlassian%20white%20logo.png') !important;"></div><ul id="optanon-menu" aria-label="Navigation Menu" role="tablist"><li class="menu-item-on menu-item-about" title="Your Privacy"><p class="preference-menu-item"><button role="tab" aria-selected="true" aria-controls="tab-0" id="Your-Privacy">Your Privacy</button></p></li><li class="menu-item-necessary menu-item-on" title="Strictly Necessary Cookies"><p class="preference-menu-item"><button role="tab" aria-selected="false" aria-controls="tab-3" id="Strictly-Necessary">Strictly Necessary Cookies</button></p></li><li class="menu-item-on menu-item-performance" title="Performance and Analytics Cookies"><p class="preference-menu-item"><button role="tab" aria-selected="false" aria-controls="tab-4" id="Performance-and">Performance and Analytics Cookies</button></p></li><li class="menu-item-on menu-item-functional" title="Functional Cookies"><p class="preference-menu-item"><button role="tab" aria-selected="false" aria-controls="tab-8" id="Functional-Cookies">Functional Cookies</button></p></li><li class="menu-item-off menu-item-advertising" title="Targeting Cookies"><p class="preference-menu-item"><button role="tab" aria-selected="false" aria-controls="tab-12" id="Targeting-Cookies">Targeting Cookies</button></p></li><li class="menu-item-moreinfo menu-item-off" title="Atlassian Cookies and Tracking Notice"><p class="preference-menu-item"><a target="_blank" aria-label="Atlassian Cookies and Tracking Notice" href="https://www.atlassian.com/legal/cookies" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Preferences Cookie Policy');">Atlassian Cookies and Tracking Notice</a></p></li></ul></div><div id="optanon-popup-body-right"><p role="heading" aria-level="2" class="legacy-preference-banner-title h2" aria-label="Privacy Preference Centre">Privacy Preference Centre</p><div class="vendor-header-container"><p class="header-3" role="heading" aria-level="3"></p><div id="optanon-popup-more-info-bar"><div class="optanon-status"><div class="optanon-status-editable"><form><span class="fieldset"><p><input type="checkbox" value="check" id="chkMain" checked="" class="legacy-group-status optanon-status-checkbox"><label for="chkMain">Active</label></p></span></form></div><div class="optanon-status-always-active optanon-status-on"><p>Always Active</p></div></div></div></div><div class="optanon-main-info-text" role="tabpanel"></div></div><div class="optanon-bottom-spacer"></div></div><div id="optanon-popup-bottom"> <a href="https://onetrust.com/poweredbyonetrust" target="_blank"><div id="optanon-popup-bottom-logo" style="background: url(https://cdn.cookielaw.org/skins/4.3.3/default_flat_bottom_two_button_black/v2/images/cookie-collective-top-bottom.png);width:155px;height:35px;" title="powered by OneTrust"></div></a><div class="optanon-button-wrapper optanon-save-settings-button optanon-close optanon-close-consent"><div class="optanon-white-button-left"></div><div class="optanon-white-button-middle"><button title="Save Settings" aria-label="Save Settings" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Preferences Save Settings');">Save Settings</button></div><div class="optanon-white-button-right"></div></div><div class="optanon-button-wrapper optanon-allow-all-button optanon-allow-all" style="display: block;"><div class="optanon-white-button-left"></div><div class="optanon-white-button-middle"><button title="Allow All" aria-label="Allow All" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Preferences Allow All');">Allow All</button></div><div class="optanon-white-button-right"></div></div></div></div></div>
+<div id="header">
+<div class="tutorial-sidebar is-active">
+<div class="_bumper"></div>
+<div class="_wrap">
+<ol>
+<div class="_group">
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="cms-link cms-link--text group-link">Learn Git</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="cms-link cms-link--text tutorial-link">Learn Git with Bitbucket Cloud</a>
+<div class="_toc">
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#create-the-repository" class="cms-link cms-link--text section-link">Create a Git repository</a>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#copy-and-add-files" class="cms-link cms-link--text section-link">Copy your Git repository and add files</a>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#pull-changes" class="cms-link cms-link--text section-link">Pull changes from your Git repository on Bitbucket Cloud</a>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#git-branch-to-merge" class="cms-link cms-link--text section-link">Use a Git branch to merge a file</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud" class="cms-link cms-link--text tutorial-link">Learn about code review in Bitbucket Cloud</a>
+<div class="_toc">
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#create-repository" class="cms-link cms-link--text section-link">Create a repository and add a teammate</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#clone-branch" class="cms-link cms-link--text section-link">Clone and make a change on a new branch</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#im-using-git" class="cms-link cms-link--text section-link">If you're using command line</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#im-using-sourcetree" class="cms-link cms-link--text section-link">If you're using Sourcetree</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/learn-branching-with-bitbucket-cloud" class="cms-link cms-link--text tutorial-link">Learn branching in Bitbucket Cloud</a>
+<div class="_toc">
+<a href="/git/tutorials/learn-branching-with-bitbucket-cloud#create-the-repository" class="cms-link cms-link--text section-link">Get set up</a>
+<a href="/git/tutorials/learn-branching-with-bitbucket-cloud#review-branching-workflow" class="cms-link cms-link--text section-link">Review branching workflow</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket" class="cms-link cms-link--text tutorial-link">Learn undoing changes with Bitbucket Cloud</a>
+<div class="_toc">
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-status" class="cms-link cms-link--text section-link">git status</a>
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-log" class="cms-link cms-link--text section-link">git log</a>
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-reset" class="cms-link cms-link--text section-link">git reset</a>
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-revert" class="cms-link cms-link--text section-link">git revert</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/what-is-version-control" class="cms-link cms-link--text group-link">Beginner</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/what-is-version-control" class="cms-link cms-link--text tutorial-link">What is version control</a>
+<div class="_toc">
+<a href="/git/tutorials/what-is-version-control#benefits-of-version-control" class="cms-link cms-link--text section-link">Benefits of version control</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/source-code-management" class="cms-link cms-link--text tutorial-link">Source Code Management</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/what-is-git" class="cms-link cms-link--text tutorial-link">What is Git</a>
+<div class="_toc">
+<a href="/git/tutorials/what-is-git#performance" class="cms-link cms-link--text section-link">Performance</a>
+<a href="/git/tutorials/what-is-git#security" class="cms-link cms-link--text section-link">Security</a>
+<a href="/git/tutorials/what-is-git#flexibility" class="cms-link cms-link--text section-link">Flexibility</a>
+<a href="/git/tutorials/what-is-git#version-control-with-git" class="cms-link cms-link--text section-link">Version control with Git</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/why-git" class="cms-link cms-link--text tutorial-link">Why Git for your Organization</a>
+<div class="_toc">
+<a href="/git/tutorials/why-git#git-for-developers" class="cms-link cms-link--text section-link">Git for developers</a>
+<a href="/git/tutorials/why-git#git-for-marketing" class="cms-link cms-link--text section-link">Git for marketing</a>
+<a href="/git/tutorials/why-git#git-for-product-management" class="cms-link cms-link--text section-link">Git for product management</a>
+<a href="/git/tutorials/why-git#git-for-designers" class="cms-link cms-link--text section-link">Git for designers</a>
+<a href="/git/tutorials/why-git#git-for-customer-support" class="cms-link cms-link--text section-link">Git for customer support</a>
+<a href="/git/tutorials/why-git#git-for-human-resources" class="cms-link cms-link--text section-link">Git for human resources</a>
+<a href="/git/tutorials/why-git#git-for-anyone-managing-budget" class="cms-link cms-link--text section-link">Git for anyone managing a budget</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/install-git" class="cms-link cms-link--text tutorial-link">Install Git</a>
+<div class="_toc">
+<a href="/git/tutorials/install-git#mac-os-x" class="cms-link cms-link--text section-link">Install Git on Mac OS X</a>
+<a href="/git/tutorials/install-git#windows" class="cms-link cms-link--text section-link">Install Git on Windows</a>
+<a href="/git/tutorials/install-git#linux" class="cms-link cms-link--text section-link">Install Git on Linux</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-ssh" class="cms-link cms-link--text tutorial-link">Git SSH</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/atlassian-git-cheatsheet" class="cms-link cms-link--text tutorial-link">Git Cheatsheet</a>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/setting-up-a-repository" class="cms-link cms-link--text group-link">Getting Started</a>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/setting-up-a-repository" class="cms-link cms-link--text tutorial-link">Setting up a repository</a>
+<div class="_toc">
+<a href="/git/tutorials/setting-up-a-repository/git-init" class="cms-link cms-link--text section-link">git init</a>
+<a href="/git/tutorials/setting-up-a-repository/git-clone" class="cms-link cms-link--text section-link">git clone</a>
+<a href="/git/tutorials/setting-up-a-repository/git-config" class="cms-link cms-link--text section-link">git config</a>
+<a href="/git/tutorials/git-alias" class="cms-link cms-link--text section-link">git alias</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/saving-changes" class="cms-link cms-link--text tutorial-link active">Saving changes</a>
+<div class="_toc is-active">
+<a href="/git/tutorials/saving-changes" class="cms-link cms-link--text section-link">git add</a>
+<a href="/git/tutorials/saving-changes/git-commit" class="cms-link cms-link--text section-link">git commit</a>
+<a href="/git/tutorials/saving-changes/git-diff" class="cms-link cms-link--text section-link">git diff</a>
+<a href="/git/tutorials/saving-changes/git-stash" class="cms-link cms-link--text section-link">git stash</a>
+<a href="/git/tutorials/saving-changes/gitignore" class="cms-link cms-link--text section-link active">.gitignore</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text tutorial-link">Inspecting a repository</a>
+<div class="_toc">
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text section-link">git status</a>
+<a href="/git/tutorials/inspecting-a-repository/git-tag" class="cms-link cms-link--text section-link">git tag</a>
+<a href="/git/tutorials/inspecting-a-repository/git-blame" class="cms-link cms-link--text section-link">git blame</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/undoing-changes" class="cms-link cms-link--text tutorial-link">Undoing changes</a>
+<div class="_toc">
+<a href="/git/tutorials/undoing-changes" class="cms-link cms-link--text section-link">git checkout</a>
+<a href="/git/tutorials/undoing-changes/git-clean" class="cms-link cms-link--text section-link">git clean</a>
+<a href="/git/tutorials/undoing-changes/git-revert" class="cms-link cms-link--text section-link">git revert</a>
+<a href="/git/tutorials/undoing-changes/git-reset" class="cms-link cms-link--text section-link">git reset</a>
+<a href="/git/tutorials/undoing-changes/git-rm" class="cms-link cms-link--text section-link">git rm</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/rewriting-history" class="cms-link cms-link--text tutorial-link">Rewriting history</a>
+<div class="_toc">
+<a href="/git/tutorials/rewriting-history#git-commit--amend" class="cms-link cms-link--text section-link">git commit --amend</a>
+<a href="/git/tutorials/rewriting-history/git-rebase" class="cms-link cms-link--text section-link">git rebase</a>
+<a href="/git/tutorials/rewriting-history#git-rebase-i" class="cms-link cms-link--text section-link">git rebase -i</a>
+<a href="/git/tutorials/rewriting-history/git-reflog" class="cms-link cms-link--text section-link">git reflog</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/syncing" class="cms-link cms-link--text group-link">Collaborating</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/syncing" class="cms-link cms-link--text tutorial-link">Syncing</a>
+<div class="_toc">
+<a href="/git/tutorials/syncing" class="cms-link cms-link--text section-link">git remote</a>
+<a href="/git/tutorials/syncing/git-fetch" class="cms-link cms-link--text section-link">git fetch</a>
+<a href="/git/tutorials/syncing/git-push" class="cms-link cms-link--text section-link">git push</a>
+<a href="/git/tutorials/syncing/git-pull" class="cms-link cms-link--text section-link">git pull</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/making-a-pull-request" class="cms-link cms-link--text tutorial-link">Making a Pull Request</a>
+<div class="_toc">
+<a href="/git/tutorials/making-a-pull-request#how-it-works" class="cms-link cms-link--text section-link">How it works</a>
+<a href="/git/tutorials/making-a-pull-request#example" class="cms-link cms-link--text section-link">Example</a>
+<a href="/git/tutorials/making-a-pull-request#where-to-go" class="cms-link cms-link--text section-link">Where to go from here</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/using-branches" class="cms-link cms-link--text tutorial-link">Using branches</a>
+<div class="_toc">
+<a href="/git/tutorials/using-branches" class="cms-link cms-link--text section-link">git branch</a>
+<a href="/git/tutorials/using-branches/git-checkout" class="cms-link cms-link--text section-link">git checkout</a>
+<a href="/git/tutorials/using-branches/git-merge" class="cms-link cms-link--text section-link">git merge</a>
+<a href="/git/tutorials/using-branches/merge-conflicts" class="cms-link cms-link--text section-link">Merge conflicts</a>
+<a href="/git/tutorials/using-branches/merge-strategy" class="cms-link cms-link--text section-link">Merge strategies</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/comparing-workflows" class="cms-link cms-link--text tutorial-link">Comparing workflows</a>
+<div class="_toc">
+<a href="/git/tutorials/comparing-workflows#centralized-workflow" class="cms-link cms-link--text section-link">Centralized Workflow</a>
+<a href="/git/tutorials/comparing-workflows/feature-branch-workflow" class="cms-link cms-link--text section-link">Feature Branch Workflow</a>
+<a href="/git/tutorials/comparing-workflows/gitflow-workflow" class="cms-link cms-link--text section-link">Gitflow Workflow</a>
+<a href="/git/tutorials/comparing-workflows/forking-workflow" class="cms-link cms-link--text section-link">Forking Workflow</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration" class="cms-link cms-link--text group-link">Migrating to Git</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration" class="cms-link cms-link--text tutorial-link">SVN to Git - prepping for the migration</a>
+<div class="_toc">
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#for-administrators" class="cms-link cms-link--text section-link">For administrators</a>
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#basic-git-commands" class="cms-link cms-link--text section-link">Basic Git commands</a>
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#git-migration-tools" class="cms-link cms-link--text section-link">Git Migration Tools</a>
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#for-developers" class="cms-link cms-link--text section-link">For developers</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-overview" class="cms-link cms-link--text tutorial-link">Migrate to Git from SVN</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-prepare" class="cms-link cms-link--text tutorial-link">Prepare</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-convert" class="cms-link cms-link--text tutorial-link">Convert</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-synchronize" class="cms-link cms-link--text tutorial-link">Synchronize</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-share" class="cms-link cms-link--text tutorial-link">Share</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-migrate" class="cms-link cms-link--text tutorial-link">Migrate</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/perforce-git" class="cms-link cms-link--text tutorial-link">Perforce to Git - why to make the move</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/perforce-git-migration" class="cms-link cms-link--text tutorial-link">Migrating from Perforce to Git</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-move-repository" class="cms-link cms-link--text tutorial-link">How to move a Git repository with history</a>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/advanced-overview" class="cms-link cms-link--text group-link">Advanced Tips</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/advanced-overview" class="cms-link cms-link--text tutorial-link">Advanced Git Tutorials</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/merging-vs-rebasing" class="cms-link cms-link--text tutorial-link">Merging vs. Rebasing</a>
+<div class="_toc">
+<a href="/git/tutorials/merging-vs-rebasing#conceptual-overview" class="cms-link cms-link--text section-link">Conceptual Overview</a>
+<a href="/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing" class="cms-link cms-link--text section-link">The Golden Rule of Rebasing</a>
+<a href="/git/tutorials/merging-vs-rebasing#workflow-walkthrough" class="cms-link cms-link--text section-link">Workflow Walkthrough</a>
+<a href="/git/tutorials/merging-vs-rebasing#summary" class="cms-link cms-link--text section-link">Summary</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/resetting-checking-out-and-reverting" class="cms-link cms-link--text tutorial-link">Resetting, Checking Out, and Reverting</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-log" class="cms-link cms-link--text tutorial-link">Advanced Git log</a>
+<div class="_toc">
+<a href="/git/tutorials/git-log#formatting-log-output" class="cms-link cms-link--text section-link">Formatting Log Output</a>
+<a href="/git/tutorials/git-log#filtering-the-commit-history" class="cms-link cms-link--text section-link">Filtering the Commit History</a>
+<a href="/git/tutorials/git-log#summary" class="cms-link cms-link--text section-link">Summary</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-hooks" class="cms-link cms-link--text tutorial-link">Git Hooks</a>
+<div class="_toc">
+<a href="/git/tutorials/git-hooks#conceptual-overview" class="cms-link cms-link--text section-link">Conceptual Overview</a>
+<a href="/git/tutorials/git-hooks#local-hooks" class="cms-link cms-link--text section-link">Local Hooks</a>
+<a href="/git/tutorials/git-hooks#server-side-hooks" class="cms-link cms-link--text section-link">Server-side Hooks</a>
+<a href="/git/tutorials/git-hooks#summary" class="cms-link cms-link--text section-link">Summary</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/refs-and-the-reflog" class="cms-link cms-link--text tutorial-link">Refs and the Reflog</a>
+<div class="_toc">
+<a href="/git/tutorials/refs-and-the-reflog#hashes" class="cms-link cms-link--text section-link">Hashes</a>
+<a href="/git/tutorials/refs-and-the-reflog#refs" class="cms-link cms-link--text section-link">Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#packed-refs" class="cms-link cms-link--text section-link">Packed Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#special-refs" class="cms-link cms-link--text section-link">Special Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#refspecs" class="cms-link cms-link--text section-link">Refspecs</a>
+<a href="/git/tutorials/refs-and-the-reflog#relative-refs" class="cms-link cms-link--text section-link">Relative Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#the-reflog" class="cms-link cms-link--text section-link">The Reflog</a>
+<a href="/git/tutorials/refs-and-the-reflog#summary" class="cms-link cms-link--text section-link">Summary</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-lfs" class="cms-link cms-link--text tutorial-link">Git LFS</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-gc" class="cms-link cms-link--text tutorial-link">Git gc</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-prune" class="cms-link cms-link--text tutorial-link">Git prune</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-bash" class="cms-link cms-link--text tutorial-link">Git Bash</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/dotfiles" class="cms-link cms-link--text tutorial-link">How to store dotfiles</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/cherry-pick" class="cms-link cms-link--text tutorial-link">Git Cherry Pick</a>
+</div>
+</div>
+</ol>
+</div>
+</div>
+<div class="hamburger">
+<div class="_layer -top"></div>
+<div class="_layer -mid"></div>
+<div class="_layer -bottom"></div>
+</div>
+<div class="primary-nav">
+<div class="_wrapper">
+<ul class="_nav-list">
+<div>
+<li>
+<a href="/git" class="cms-link cms-link--text _nav-item -home">Home</a>
+</li>
+</div>
+<div>
+<li class="tutorials-nav" id="tutorials-nav-mobile">
+<h4 class="_nav-item -tutorials">Tutorials</h4>
+<div class="_sublist">  <ol>        <li class="_group">      <h5>Learn Git</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/learn-git-with-bitbucket-cloud">Learn Git with Bitbucket Cloud</a>        </li>                <li>          <a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud">Learn about code review in Bitbucket Cloud</a>        </li>                <li>          <a href="/git/tutorials/learn-branching-with-bitbucket-cloud">Learn branching in Bitbucket Cloud</a>        </li>                <li>          <a href="/git/tutorials/learn-undoing-changes-with-bitbucket">Learn undoing changes with Bitbucket Cloud</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Beginner</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/what-is-version-control">What is version control</a>        </li>                <li>          <a href="/git/tutorials/source-code-management">Source Code Management</a>        </li>                <li>          <a href="/git/tutorials/what-is-git">What is Git</a>        </li>                <li>          <a href="/git/tutorials/why-git">Why Git for your Organization</a>        </li>                <li>          <a href="/git/tutorials/install-git">Install Git</a>        </li>                <li>          <a href="/git/tutorials/git-ssh">Git SSH</a>        </li>                <li>          <a href="/git/tutorials/atlassian-git-cheatsheet">Git Cheatsheet</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Getting Started</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/setting-up-a-repository">Setting up a repository</a>        </li>                <li>          <a href="/git/tutorials/saving-changes">Saving changes</a>        </li>                <li>          <a href="/git/tutorials/inspecting-a-repository">Inspecting a repository</a>        </li>                <li>          <a href="/git/tutorials/undoing-changes">Undoing changes</a>        </li>                <li>          <a href="/git/tutorials/rewriting-history">Rewriting history</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Collaborating</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/syncing">Syncing</a>        </li>                <li>          <a href="/git/tutorials/making-a-pull-request">Making a Pull Request</a>        </li>                <li>          <a href="/git/tutorials/using-branches">Using branches</a>        </li>                <li>          <a href="/git/tutorials/comparing-workflows">Comparing workflows</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Migrating to Git</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/svn-to-git-prepping-your-team-migration">SVN to Git - prepping for the migration</a>        </li>                <li>          <a href="/git/tutorials/migrating-overview">Migrate to Git from SVN</a>        </li>                <li>          <a href="/git/tutorials/migrating-prepare">Prepare</a>        </li>                <li>          <a href="/git/tutorials/migrating-convert">Convert</a>        </li>                <li>          <a href="/git/tutorials/migrating-synchronize">Synchronize</a>        </li>                <li>          <a href="/git/tutorials/migrating-share">Share</a>        </li>                <li>          <a href="/git/tutorials/migrating-migrate">Migrate</a>        </li>                <li>          <a href="/git/tutorials/perforce-git">Perforce to Git - why to make the move</a>        </li>                <li>          <a href="/git/tutorials/perforce-git-migration">Migrating from Perforce to Git</a>        </li>                <li>          <a href="/git/tutorials/git-move-repository">How to move a Git repository with history</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Advanced Tips</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/advanced-overview">Advanced Git Tutorials</a>        </li>                <li>          <a href="/git/tutorials/merging-vs-rebasing">Merging vs. Rebasing</a>        </li>                <li>          <a href="/git/tutorials/resetting-checking-out-and-reverting">Resetting, Checking Out, and Reverting</a>        </li>                <li>          <a href="/git/tutorials/git-log">Advanced Git log</a>        </li>                <li>          <a href="/git/tutorials/git-hooks">Git Hooks</a>        </li>                <li>          <a href="/git/tutorials/refs-and-the-reflog">Refs and the Reflog</a>        </li>                <li>          <a href="/git/tutorials/git-lfs">Git LFS</a>        </li>                <li>          <a href="/git/tutorials/git-gc">Git gc</a>        </li>                <li>          <a href="/git/tutorials/git-prune">Git prune</a>        </li>                <li>          <a href="/git/tutorials/git-bash">Git Bash</a>        </li>                <li>          <a href="/git/tutorials/dotfiles">How to store dotfiles</a>        </li>                <li>          <a href="/git/tutorials/cherry-pick">Git Cherry Pick</a>        </li>              </ol>    </li>      </ol>  </div>
+</li>
+<li>
+<a href="/git/tutorials" class="cms-link cms-link--text _nav-item -tutorials">Tutorials</a>
+</li>
+</div>
+<div>
+<li>
+<a href="/git/articles" class="cms-link cms-link--text _nav-item -articles">Articles</a>
+</li>
+</div>
+<div>
+<li>
+<a href="/git/glossary" class="cms-link cms-link--text _nav-item -glossary">Glossary</a>
+</li>
+</div>
+</ul>
+</div>
+</div>
+<div class="topbar is-tutorial">
+<div class="_header -is-tutorial">
+<a href="/git/tutorials" class="active">Tutorials</a>
+</div>
+</div>
+<form class="newsletter">
+<input class="is-empty _input" type="email" placeholder="Enter Your Email For Git News">
+<button type="submit" class="_status icon-email-submit">Submit</button>
+</form>
+<a href="#footer" class="button green-hollow secondary newsletter-cta">Sign up</a>
+<a href="/git/search" class="search-button search-open ">
+<span class="_link icon-search">Search</span>
+</a>
+<a href="/git" class="search-button search-close -in-page hidden">
+<span class="_link icon-search-close -close">Search</span>
+</a>
+</div>
+<div class="page-wrap is-active -gray-bg tutorial-detail">
+<div id="content" class="_content">
+<div class="tutorial-hero">
+<div class="g-column g-12-12 text-center">
+<img src="https://wac-cdn.atlassian.com/dam/jcr:75f75cb6-a6ab-4f0b-ab29-e366914f513c/hero.svg?cdnVersion=534" alt="Saving changes">
+<h1>.gitignore</h1>
+<div class="g-column g-12-12 t-12-12 m-12-12 breadcrumbs">
+<a href="/git/tutorials/saving-changes" class="cms-link cms-link--text">git add</a>
+<a href="/git/tutorials/saving-changes/git-commit" class="cms-link cms-link--text">git commit</a>
+<a href="/git/tutorials/saving-changes/git-diff" class="cms-link cms-link--text">git diff</a>
+<a href="/git/tutorials/saving-changes/git-stash" class="cms-link cms-link--text">git stash</a>
+<a href="/git/tutorials/saving-changes/gitignore" class="cms-link cms-link--text">.gitignore</a>
+</div></div></div>
+<div class="g-row">
+<div class="g-column g-12-12 g-centered">
+<p>Git sees every file in your working copy as one of three things:</p>
+<ol>
+<li>tracked - a file which has been previously staged or committed;</li>
+<li>untracked - a file which <em>has not</em> been staged or committed; or</li>
+<li>ignored - a file which Git has been explicitly told to ignore.</li>
+</ol>
+<p>Ignored files are usually build artifacts and machine generated files that can be derived from your repository source or should otherwise not be committed. Some common examples are:</p>
+<ul>
+<li>dependency caches, such as the contents of <code>/node_modules</code> or <code>/packages</code></li>
+<li>compiled code, such as <code>.o</code>, <code>.pyc</code>, and <code>.class</code> files</li>
+<li>build output directories, such as <code>/bin</code>, <code>/out</code>, or <code>/target</code></li>
+<li>files generated at runtime, such as <code>.log</code>, <code>.lock</code>, or <code>.tmp</code></li>
+<li>hidden system files, such as <code>.DS_Store</code> or <code>Thumbs.db</code></li>
+<li>personal IDE config files, such as <code>.idea/workspace.xml</code></li>
+</ul>
+<p>Ignored files are tracked in a special file named <code>.gitignore</code> that is checked in at the root of your repository. There is no explicit git ignore command: instead the <code>.gitignore</code> file must be edited and committed by hand when you have new files that you wish to ignore. <code>.gitignore</code> files contain patterns that are matched against file names in your repository to determine whether or not they should be ignored.</p>
+<ul>
+<li>Ignoring files in Git
+<ul>
+<li><a href="#git-ignore-patterns">Git ignore patterns</a></li>
+<li><a href="#shared">Shared .gitignore files in your repository</a></li>
+<li><a href="#personal-git-ignore-rules">Personal Git ignore rules</a></li>
+<li><a href="#global-git-ignore-rules">Global Git ignore rules</a></li>
+<li><a href="#ignoring-a-previously-committed">Ignoring a previously committed file</a></li>
+<li><a href="#committing-an-ignored-file">Committing an ignored file</a></li>
+<li><a href="#stashing-an-ignored-file">Stashing an ignored file</a></li>
+<li><a href="#debugging">Debugging .gitignore files</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="git-ignore-patterns">Git ignore patterns</h2>
+<p><code>.gitignore</code> uses <a href="http://linux.die.net/man/7/glob">globbing patterns</a> to match against file names. You can construct your patterns using various symbols:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Example matches</th>
+<th>Explanation*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>**/logs </code> </td>
+<td> <code>logs/debug.log</code><br> <code>logs/monday/foo.bar</code><br> <code>build/logs/debug.log</code> </td>
+<td> You can prepend a pattern with a double asterisk to match directories anywhere in the repository. </td>
+</tr>
+<tr>
+<td> <code>**/logs/debug.log </code> </td>
+<td> <code>logs/debug.log</code><br> <code>build/logs/debug.log</code><br> <em>but not</em><br> <code>logs/build/debug.log</code> </td>
+<td> You can also use a double asterisk to match files based on their name and the name of their parent directory. </td>
+</tr>
+<tr>
+<td> <code>*.log</code> </td>
+<td> <code>debug.log</code><br> <code>foo.log</code><br> <code>.log</code><br> <code>logs/debug.log</code> </td>
+<td> An asterisk is a wildcard that matches zero or more characters. </td>
+</tr>
+<tr>
+<td> <code>*.log </code><br> <code>!important.log</code> </td>
+<td> <code>debug.log</code><br> <code>trace.log</code><br> <em>but not</em><br> <code>important.log</code><br> <code>logs/important.log</code> </td>
+<td> Prepending an exclamation mark to a pattern negates it. If a file matches a pattern, but <em>also</em> matches a negating pattern defined later in the file, it will not be ignored. </td>
+</tr>
+<tr>
+<td> <code>*.log </code><br> <code>!important/*.log</code><br> <code>trace.*</code> </td>
+<td> <code>debug.log</code><br> <code>important/trace.log</code><br> <em>but not</em><br> <code>important/debug.log</code> </td>
+<td> Patterns defined after a negating pattern will re-ignore any previously negated files. </td>
+</tr>
+<tr>
+<td> <code>/debug.log</code> </td>
+<td> <code>debug.log</code><br> <em>but not</em><br> <code>logs/debug.log</code> </td>
+<td> Prepending a slash matches files only in the repository root. </td>
+</tr>
+<tr>
+<td> <code>debug.log</code> </td>
+<td> <code>debug.log</code><br> <code>logs/debug.log</code> </td>
+<td> By default, patterns match files in any directory </td>
+</tr>
+<tr>
+<td> <code>debug?.log </code> </td>
+<td> <code>debug0.log</code><br> <code>debugg.log</code><br> <em>but not</em><br> <code>debug10.log</code> </td>
+<td> A question mark matches exactly one character. </td>
+</tr>
+<tr>
+<td> <code>debug[0-9].log </code> </td>
+<td> <code>debug0.log</code><br> <code>debug1.log</code><br> <em>but not</em><br> <code>debug10.log</code> </td>
+<td> Square brackets can also be used to match a single character from a specified range. </td>
+</tr>
+<tr>
+<td> <code>debug[01].log </code> </td>
+<td> <code>debug0.log</code><br> <code>debug1.log</code><br> <em>but not </em><br> <code>debug2.log</code><br> <code>debug01.log</code> </td>
+<td> Square brackets match a single character form the specified set. </td>
+</tr>
+<tr>
+<td> <code>debug[!01].log </code> </td>
+<td> <code>debug2.log</code><br> <em>but not</em><br> <code>debug0.log</code><br> <code>debug1.log</code><br> <code>debug01.log</code> </td>
+<td> An exclamation mark can be used to match any character except one from the specified set. </td>
+</tr>
+<tr>
+<td> <code>debug[a-z].log </code> </td>
+<td> <code>debuga.log</code><br> <code>debugb.log</code><br> <em>but not</em><br> <code>debug1.log</code> </td>
+<td> Ranges can be numeric or alphabetic. </td>
+</tr>
+<tr>
+<td> <code>logs</code> </td>
+<td> <code>logs</code><br> <code>logs/debug.log</code><br> <code>logs/latest/foo.bar</code><br> <code>build/logs</code><br> <code>build/logs/debug.log</code> </td>
+<td> If you don't append a slash, the pattern will match both files and the contents of directories with that name. In the example matches on the left, both directories and files named <em>logs</em> are ignored </td>
+</tr>
+<tr>
+<td> logs/ </td>
+<td> <code>logs/debug.log</code><br> <code>logs/latest/foo.bar</code><br> <code>build/logs/foo.bar</code><br> <code>build/logs/latest/debug.log</code> </td>
+<td> Appending a slash indicates the pattern is a directory. The entire contents of any directory in the repository matching that name – including all of its files and subdirectories – will be ignored </td>
+</tr>
+<tr>
+<td> <code>logs/ </code><br> <code>!logs/important.log</code> </td>
+<td> <code>logs/debug.log</code><br> <code>logs/important.log</code> </td>
+<td> Wait a minute! Shouldn't <code>logs/important.log</code> be negated in the example on the left<br><br> Nope! Due to a performance-related quirk in Git, you <em>can not</em> negate a file that is ignored due to a pattern matching a directory </td>
+</tr>
+<tr>
+<td> <code>logs/**/debug.log </code> </td>
+<td> <code>logs/debug.log</code><br> <code>logs/monday/debug.log</code><br> <code>logs/monday/pm/debug.log</code> </td>
+<td> A double asterisk matches zero or more directories. </td>
+</tr>
+<tr>
+<td> <code>logs/*day/debug.log </code> </td>
+<td> <code>logs/monday/debug.log</code><br> <code>logs/tuesday/debug.log</code><br> <em>but not</em><br> <code>logs/latest/debug.log</code> </td>
+<td> Wildcards can be used in directory names as well. </td>
+</tr>
+<tr>
+<td> <code>logs/debug.log</code> </td>
+<td> <code>logs/debug.log</code><br> <em>but not</em><br> <code>debug.log</code><br> <code>build/logs/debug.log</code> </td>
+<td> Patterns specifying a file in a particular directory are relative to the repository root. (You can prepend a slash if you like, but it doesn't do anything special.) </td>
+</tr>
+</tbody>
+</table>
+<p>** these explanations assume your .gitignore file is in the top level directory of your repository, as is the convention. If your repository has multiple .gitignore files, simply mentally replace "repository root" with "directory containing the .gitignore file" (and consider unifying them, for the sanity of your team).*</p>
+<p>In addition to these characters, you can use # to include comments in your <code>.gitignore</code> file:</p>
+<pre><code class="hljs 1c"><span class="hljs-meta"># ignore all logs</span>
+*.<span class="hljs-built_in">log</span>
+</code></pre>
+<p>You can use \ to escape <code>.gitignore</code> pattern characters if you have files or directories containing them:</p>
+<pre><code class="hljs css"># <span class="hljs-selector-tag">ignore</span> <span class="hljs-selector-tag">the</span> <span class="hljs-selector-tag">file</span> <span class="hljs-selector-tag">literally</span> <span class="hljs-selector-tag">named</span> <span class="hljs-selector-tag">foo</span><span class="hljs-selector-attr">[01]</span><span class="hljs-selector-class">.txt</span>
+<span class="hljs-selector-tag">foo</span>\<span class="hljs-selector-attr">[01\]</span><span class="hljs-selector-class">.txt</span>
+</code></pre>
+<h2 id="shared">Shared .gitignore files in your repository</h2>
+<p>Git ignore rules are usually defined in a <code>.gitignore</code> file at the root of your repository. However, you can choose to define multiple <code>.gitignore</code> files in different directories in your repository. Each pattern in a particular <code>.gitignore</code> file is tested relative to the directory containing that file. However the convention, and simplest approach, is to define a single <code>.gitignore</code> file in the root. As your <code>.gitignore</code> file is checked in, it is versioned like any other file in your repository and shared with your teammates when you push. Typically you should only include patterns in <code>.gitignore</code> that will benefit other users of the repository.</p>
+<h2 id="personal-git-ignore-rules">Personal Git ignore rules</h2>
+<p>You can also define personal ignore patterns for a particular repository in a special file at <code>.git/info/exclude</code>. These are not versioned, and not distributed with your repository, so it's an appropriate place to include patterns that will likely only benefit you. For example if you have a custom logging setup, or special development tools that produce files in your repository's working directory, you could consider adding them to <code>.git/info/exclude</code> to prevent them from being accidentally committed to your repository.</p>
+<h2 id="global-git-ignore-rules">Global Git ignore rules</h2>
+<p>In addition, you can define global Git ignore patterns for all repositories on your local system by setting the Git <code>core.excludesFile</code> property. You'll have to create this file yourself. If you're unsure where to put your global <code>.gitignore</code> file, your home directory isn't a bad choice (and makes it easy to find later). Once you've created the file, you'll need to configure its location with <code>git config</code>:</p>
+<pre><code class="hljs routeros">$ touch ~/.gitignore
+$ git<span class="hljs-built_in"> config </span>--global core.excludesFile ~/.gitignore
+</code></pre>
+<p>You should be careful what patterns you choose to globally ignore, as different file types are relevant for different projects. Special operating system files (e.g. <code>.DS_Store</code> and <code>thumbs.db</code>) or temporary files created by some developer tools are typical candidates for ignoring globally.</p>
+<h2 id="ignoring-a-previously-committed">Ignoring a previously committed file</h2>
+<p>If you want to ignore a file that you've committed in the past, you'll need to delete the file from your repository and then add a <code>.gitignore</code> rule for it. Using the <code>--cached</code> option with <code>git rm</code> means that the file will be deleted from your repository, but will remain in your working directory as an ignored file.</p>
+<pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">echo</span> debug.log &gt;&gt; .gitignore</span>
+<span class="hljs-meta">$</span><span class="bash"> git rm --cached debug.log</span>
+rm 'debug.log'
+<span class="hljs-meta">$</span><span class="bash"> git commit -m <span class="hljs-string">"Start ignoring debug.log"</span></span>
+</code></pre>
+<p>You can omit the <code>--cached</code> option if you want to delete the file from both the repository and your local file system.</p>
+<h2 id="committing-an-ignored-file">Committing an ignored file</h2>
+<p>It is possible to force an ignored file to be committed to the repository using the <code>-f</code> (or <code>--force</code>) option with <code>git add</code>:</p>
+<pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> cat .gitignore</span>
+*.log
+<span class="hljs-meta">$</span><span class="bash"> git add -f debug.log</span>
+<span class="hljs-meta">$</span><span class="bash"> git commit -m <span class="hljs-string">"Force adding debug.log"</span></span>
+</code></pre>
+<p>You might consider doing this if you have a general pattern (like <code>*.log</code>) defined, but you want to commit a specific file. However a better solution is to define an exception to the general rule:</p>
+<pre><code class="hljs stylus">$ echo !debug<span class="hljs-selector-class">.log</span> &gt;&gt; <span class="hljs-selector-class">.gitignore</span>
+$ cat <span class="hljs-selector-class">.gitignore</span>
+*<span class="hljs-selector-class">.log</span>
+!debug<span class="hljs-selector-class">.log</span>
+$ git add debug<span class="hljs-selector-class">.log</span>
+$ git commit -m <span class="hljs-string">"Adding debug.log"</span>
+</code></pre>
+<p>This approach is more obvious, and less confusing, for your teammates.</p>
+<h2 id="stashing-an-ignored-file">Stashing an ignored file</h2>
+<p><a href="https://www.atlassian.com/git/tutorials/git-stash"><code>git stash</code></a> is a powerful Git feature for temporarily shelving and reverting local changes, allowing you to re-apply them later on. As you'd expect, by default <code>git stash</code> ignores ignored files and only stashes changes to files that are tracked by Git. However, you can invoke <a href="https://www.atlassian.com/git/tutorials/git-stash/#stashing-untracked-or-ignored">git stash with the --all option</a> to stash changes to ignored and untracked files as well.</p>
+<h2 id="debugging">Debugging .gitignore files</h2>
+<p>If you have complicated <code>.gitignore</code> patterns, or patterns spread over multiple <code>.gitignore</code> files, it can be difficult to track down why a particular file is being ignored. You can use the <code>git check-ignore</code> command with the <code>-v</code> (or <code>--verbose</code>) option to determine which pattern is causing a particular file to be ignored:</p>
+<pre><code class="hljs smali">$ git<span class="hljs-built_in"> check-ignore </span>-v debug.log
+<span class="hljs-keyword">.gitignore</span>:3:*.log debug.log
+</code></pre>
+<p>The output shows:</p>
+<pre><code class="hljs livecodeserver">&lt;<span class="hljs-built_in">file</span> containing <span class="hljs-keyword">the</span> pattern&gt; : &lt;<span class="hljs-built_in">line</span> <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> pattern&gt; : &lt;pattern&gt; &lt;<span class="hljs-built_in">file</span> name&gt;
+</code></pre>
+<p>You can pass multiple file names to <code>git check-ignore</code> if you like, and the names themselves don't even have to correspond to files that exist in your repository.</p>
+</div></div>
+<div id="related-post-sidebar" class="related-post attached">
+<div class="related-post--text">
+<p>Ready to learn Git?</p>
+<p>Try this interactive tutorial.</p>
+</div>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="button green-solid standard related-post--link">Get started now</a>
+</div>
+<div class="_footer">
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text"><div class="g-column g-6-12 g-centered">
+<div class="_hero">
+<img src="https://wac-cdn.atlassian.com/dam/jcr:cd923053-471a-4396-9c1b-ba74124b3d57/hero.svg?cdnVersion=534" alt="Inspecting a repository">
+</div>
+<h5>Next up:</h5>
+<h4>Inspecting a&nbsp;repository</h4>
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text">Start next tutorial</a>
+</div></a></div>
+<div id="related-post-sidebar-flyout" class="related-post active">
+<div class="related-post--text">
+<p>Ready to learn Git?</p>
+<p>Try this interactive tutorial.</p>
+</div>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="button green-solid standard related-post--link">Get started now</a>
+</div></div>
+</div>
+<div id="footer" class="footer is-tutorial ">
+<div class="g-row _atlassian-logo">
+<div class="g-column g-12-12">
+<h5>Powered By</h5>
+<a href="https://bitbucket.org" class="cms-link cms-link--image"><img src="https://wac-cdn.atlassian.com/dam/jcr:c3392b46-dcac-4283-8855-dd8fda6918a0/Bitbucket-white.svg?cdnVersion=534" alt="Atlassian"></a>
+</div></div>
+<div class="g-row">
+<div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6>Recommend</h6>
+<a href="https://twitter.com/home?status=Switching%20to%20%23Git?%20Use%20the%20Atlassian%20Git%20tutorials%20to%20jumpstart%20your%20training%20in%20Git%20commands%20and%20workflows.%20https://www.atlassian.com/git" class="cms-link cms-link--image social-code"><img src="https://wac-cdn.atlassian.com/dam/jcr:69b49692-9452-4dd9-aca1-df56b2bbadbd/icon-twitter.svg?cdnVersion=534" alt="Twitter"></a>
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://www.atlassian.com/git" class="cms-link cms-link--image social-code"><img src="https://wac-cdn.atlassian.com/dam/jcr:9c8da5cb-5272-4e89-9cc1-9a3f52265380/icon-facebook.svg?cdnVersion=534" alt="Facebook"></a>
+<a href="https://plus.google.com/share?url=https://www.atlassian.com/git" class="cms-link cms-link--image social-code"><img src="https://wac-cdn.atlassian.com/dam/jcr:3b592a98-07ca-48a6-8b95-e59eae543341/icon-gplus.svg?cdnVersion=534" alt="GooglePlus"></a>
+</div><div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6>Want future articles?</h6>
+<form class="newsletter">
+<input class="is-empty _input" type="email" placeholder="Enter Your Email For Git News">
+<button type="submit" class="_status icon-email-submit">Submit</button>
+</form>
+</div><div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6>Site hosted by</h6>
+<a href="/" class="cms-link cms-link--image"><img src="https://wac-cdn.atlassian.com/dam/jcr:ffd56b30-ad4d-4cb5-94be-79c1dd68b1fb/Atlassian-horizontal-white-rgb.svg?cdnVersion=534" alt="Bitbucket" class="_bitbucket-logo"></a>
+</div></div>
+<div class="g-row">
+<div class="g-column g-12-12 t-12-12 m-12-12">
+<p class="license"><a class="icon-global-cclicense" href="http://creativecommons.org/licenses/by/2.5/au/" rel="nofollow">creativecommons.org</a>Except where otherwise noted, all content is licensed under a <a href="http://creativecommons.org/licenses/by/2.5/au/" rel="nofollow">Creative Commons Attribution 2.5 Australia License</a>.</p>
+</div></div>
+</div>
+<script type="text/javascript">
+var HTTP_PREFIX = "";
+var FEATURE_FLAG_USE_GDPR = true;
+</script>
+<script type="text/javascript" src="?cdnVersion=534"></script>
+<script type="text/javascript" src="https://wac-cdn.atlassian.com/assets/build/js/gitguide/app.js?cdnVersion=534"></script>
+<script type="text/javascript">
+(function(){
+var imkt = window.imkt || (window.imkt = {});
+imkt.isEditMode = false;
+imkt.isProduction = true;
+imkt.constants = imkt.constants || {};
+imkt.constants.rootPath = "/";
+imkt.constants.assetPath = "https://wac-cdn.atlassian.com" + "/assets/";
+imkt.constants.libPath = imkt.constants.assetPath + "bower_components/";
+imkt.constants.cdnVersionQuery = "?cdnVersion=534";
+imkt.constants.isDevUser = false;
+imkt.constants.getUserAccounts = false;
+imkt.constants.headerLoginMenu = true;
+imkt.constants.public = true;
+imkt.constants.mobileBreakpoint = 640;
+})();
+</script>
+<script type="text/javascript" src="https://wac-cdn.atlassian.com/assets/build/js/react/app.js?cdnVersion=534"></script>
+<script type="text/x-component">
+{
+"type":"imkt.pages.WACPage",
+"params": {
+}
+}
+</script>
+<script>
+function initializeATLAnalytics() {
+var pageViewProperties = { contentSite: 'Git Microsite', contentType: 'Microsite', contentProduct: 'Bitbucket' };
+if (typeof ace !== 'undefined') {
+ace.analytics.Initializer.initWithPageAnalytics('kiv6wyh2nw', pageViewProperties);
+}
+imkt.utils.tracking.initProductAnalytics();
+imkt.utils.tracking.trackPage(window.location.origin + window.location.pathname);
+}
+</script>
+<script type="text/javascript" class="optanon-category-2">
+loadExternalJS("https://atl-global.atlassian.com/js/atl-global.min.js", document.body, initializeATLAnalytics);
+</script>
+
+<!-- LastRendered: Aug 27, 2019 2:39:17 PM -->
+<script src="https://atl-global.atlassian.com/js/atl-global.min.js" type="text/javascript"></script></body></html><html lang="en"><head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="fb:pages" content="115407078489594">
+<meta name="description" content="Git ignore patterns are used to exclude certain files in your working directory from your Git history. They can be local, global, or shared with your team.">
+<meta name="author" content="Atlassian">
+<link rel="canonical" href="https://www.atlassian.com/git/tutorials/saving-changes/gitignore">
+<title>.gitignore file - ignoring files in Git | Atlassian Git Tutorial</title>
+<link rel="stylesheet" href="https://wac-cdn.atlassian.com/assets/build/css/gitguide/site.css?cdnVersion=534">
+<link rel="stylesheet" href="https://wac-cdn.atlassian.com/assets/build/css/gitguide/icons.css?cdnVersion=534" class="additional-css">
+<link rel="stylesheet" href="https://wac-cdn.atlassian.com/assets/build/css/gitguide/editmode.css?cdnVersion=534" class="additional-css">
+<link href="https://plus.google.com/+atlassian" rel="publisher">
+<link rel="alternate" href="https://www.atlassian.com/git/tutorials/saving-changes/gitignore" hreflang="x-default">
+<link rel="alternate" href="https://www.atlassian.com/git/tutorials/saving-changes/gitignore" hreflang="en">
+<link rel="alternate" href="https://www.atlassian.com/ja/git/tutorials/saving-changes/gitignore" hreflang="ja">
+<link rel="alternate" href="https://www.atlassian.com/fr/git/tutorials/saving-changes/gitignore" hreflang="fr">
+<link rel="alternate" href="https://www.atlassian.com/de/git/tutorials/saving-changes/gitignore" hreflang="de">
+<link rel="alternate" href="https://www.atlassian.com/es/git/tutorials/saving-changes/gitignore" hreflang="es">
+<link rel="alternate" href="https://www.atlassian.com/br/git/tutorials/saving-changes/gitignore" hreflang="pt-BR">
+<link rel="alternate" href="https://www.atlassian.com/zh/git/tutorials/saving-changes/gitignore" hreflang="zh-Hans">
+<link rel="alternate" href="https://www.atlassian.com/ko/git/tutorials/saving-changes/gitignore" hreflang="ko">
+<link rel="alternate" href="https://www.atlassian.com/ru/git/tutorials/saving-changes/gitignore" hreflang="ru">
+<link rel="alternate" href="https://www.atlassian.com/pl/git/tutorials/saving-changes/gitignore" hreflang="pl">
+<link rel="alternate" href="https://www.atlassian.com/it/git/tutorials/saving-changes/gitignore" hreflang="it">
+<link rel="alternate" href="https://www.atlassian.com/nl/git/tutorials/saving-changes/gitignore" hreflang="nl">
+<link rel="alternate" href="https://www.atlassian.com/fi/git/tutorials/saving-changes/gitignore" hreflang="fi">
+<link rel="alternate" href="https://www.atlassian.com/hu/git/tutorials/saving-changes/gitignore" hreflang="hu">
+<link rel="alternate" href="https://www.atlassian.com/ro/git/tutorials/saving-changes/gitignore" hreflang="ro">
+<link rel="alternate" href="https://www.atlassian.com/cs/git/tutorials/saving-changes/gitignore" hreflang="cs">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/apple-touch-icon-152x152.png">
+<link rel="icon" type="image/png" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/favicon.png" sizes="32x32">
+<link rel="mask-icon" href="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/safari-pinned-tab.svg" color="#59afe1">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="https://wac-cdn.atlassian.com/assets/img/favicons/gitguide/mstile-144x144.png">
+<meta name="theme-color" content="#205081">
+<meta property="og:title" content=".gitignore file - ignoring files in Git | Atlassian Git Tutorial">
+<meta property="og:description" content="Git ignore patterns are used to exclude certain files in your working directory from your Git history. They can be local, global, or shared with your team.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.atlassian.com/git/tutorials/saving-changes/gitignore">
+<meta property="og:site_name" content="Atlassian">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Atlassian">
+<script type="text/javascript" async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-5RJSBR&amp;l=dataLayer"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" id="analytics-js" async="" src="https://cdn.segment.com/analytics.js/v1/kiv6wyh2nw/analytics.min.js"></script><script src="https://js-agent.newrelic.com/nr-spa-1130.min.js"></script><script src="https://wac-cdn.atlassian.com/assets/build/js/jquery.min.js?cdnVersion=534"></script>
+<script type="text/javascript">
+/**
+* function to load external js through javascript.
+*
+* @param url - javascript url
+* @param location - location of the dom (e.g. document.head)
+*/
+var loadExternalJS = function(url, location, callback){
+var scriptTag = document.createElement('script');
+scriptTag.src = url;
+scriptTag.type = 'text/javascript';
+/* Then bind the event to the callback function.
+There are several events for cross browser compatibility. */
+scriptTag.onreadystatechange = callback;
+scriptTag.onload = callback;
+/* Fire the loading */
+location.appendChild(scriptTag);
+};
+</script>
+<!-- OneTrust Cookies Consent Notice (Production CDN, www.atlassian.com, en-GB) start -->
+<script src="https://cdn.cookielaw.org/consent/141bbadf-8293-4d74-9552-81ec52e16c66.js" type="text/javascript" charset="UTF-8"></script><link type="text/css" href="https://cdn.cookielaw.org/skins/4.3.3/default_flat_bottom_two_button_black/v2/css/optanon.css" rel="stylesheet"><style>#optanon ul#optanon-menu li { background-color:  !important }#optanon ul#optanon-menu li.menu-item-selected { background-color:  !important }#optanon #optanon-popup-wrapper .optanon-white-button-middle { background-color: #FFAB00 !important }.optanon-alert-box-wrapper .optanon-alert-box-button-middle { background-color: #FFAB00 !important; border-color: #FFAB00 !important; }#optanon #optanon-popup-wrapper .optanon-white-button-middle button { color: #ffffff !important }.optanon-alert-box-wrapper .optanon-alert-box-button-middle button { color: #ffffff !important }#optanon #optanon-popup-bottom { background-color: #172B4D !important }#optanon.modern #optanon-popup-top, #optanon.modern #optanon-popup-body-left-shading { background-color: #172B4D !important }.optanon-alert-box-wrapper { background-color:#172B4D !important }.optanon-alert-box-wrapper .optanon-alert-box-bg p { color:#FFFFFF !important }#optanon, #optanon *, #optanon div, #optanon span, #optanon ul, #optanon li, #optanon a, #optanon p, .optanon-alert-box-wrapper * {
+font-family: LLCircularWeb,"Helvetica Neue",Helvetica,sans-serif;
+}
+
+
+#optanon #optanon-popup-body h2 {
+    position: absolute;
+    top: -55px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin: 5px 0px 0px 5px;
+}
+#optanon #optanon-popup-body .legacy-preference-banner-title {
+    margin: 5px 0px 0px 5px;
+    padding: 0px;
+    color: #ffffff;
+}
+#optanon #optanon-popup-wrapper .optanon-white-button-middle a {
+    color: #000000 !important; 
+}
+.optanon-alert-box-wrapper .optanon-alert-box-button-middle a {
+    color: #000000 !important;
+}
+.optanon-alert-box-wrapper a {
+    color: #ffffff !important; 
+    text-indent: 1;
+   font-weight: bold; 
+  
+}
+
+.optanon-alert-box-button-middle, #optanon #optanon-popup-wrapper .optanon-white-button-middle {
+   border-radius: 4px;
+}
+.optanon-alert-box-wrapper {
+    margin: 4px;
+    border-radius: 4px;
+    width: 99.5%;
+}
+
+#optanon.modern #optanon-popup-top, #optanon.modern #optanon-popup-body-left-shading
+{
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+#optanon #optanon-popup-bottom {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+#optanon #optanon-popup-bottom-logo:after {
+    content: 'OneTrust';
+    color: #ffffff;
+}
+#optanon #optanon-popup-bottom-logo:before {
+    content: 'Powered by';
+    color: #ffffff;
+}
+.optanon-alert-box-wrapper .optanon-button-more .optanon-alert-box-button-middle a:before {
+    content: '';
+}
+.optanon-alert-box-wrapper .optanon-button-allow .optanon-alert-box-button-middle a:before {
+    content: '';
+}
+#optanon #optanon-popup-top .optanon-close, .optanon-alert-box-wrapper .optanon-alert-box-corner-close a {
+    right: 10px;
+}
+ @media only screen and (max-width: 47em) {
+ .optanon-alert-box-wrapper.hide-cookie-setting-button .optanon-alert-box-body {
+    margin-right: auto;
+    padding-right: 5px;
+}
+}</style><script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+function OptanonWrapper() { }
+</script>
+<!-- OneTrust Cookies Consent Notice (Production CDN, www.atlassian.com, en-GB) end -->
+<script type="text/javascript">
+var LOCALIZED_PRICING_CONTENTFUL_SPACE = "3s3v3nq72la0";
+var LOCALIZED_PRICING_CONTENTFUL_ENVIRONMENT = "master";
+var LOCALIZED_PRICING_CONTENTFUL_ACCESS_TOKEN = "b9c3ea8d9c664146e9c7dd136a1d40ff8415715c3ef8ee222536f36fb2056613";
+var LOCALIZED_PRICING_USE_GEO_CURRENCY = true;
+</script>
+<script type="text/javascript">
+window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e,n){function r(t){try{s.console&&console.log(t)}catch(e){}}var o,i=t("ee"),a=t(23),s={};try{o=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(s.console=!0,o.indexOf("dev")!==-1&&(s.dev=!0),o.indexOf("nr_dev")!==-1&&(s.nrDev=!0))}catch(c){}s.nrDev&&i.on("internal-error",function(t){r(t.stack)}),s.dev&&i.on("fn-err",function(t,e,n){r(n.stack)}),s.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(s,function(t,e){return t}).join(", ")))},{}],2:[function(t,e,n){function r(t,e,n,r,s){try{l?l-=1:o(s||new UncaughtException(t,e,n),!0)}catch(f){try{i("ierr",[f,c.now(),!0])}catch(d){}}return"function"==typeof u&&u.apply(this,a(arguments))}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function o(t,e){var n=e?null:c.now();i("err",[t,n])}var i=t("handle"),a=t(24),s=t("ee"),c=t("loader"),f=t("gos"),u=window.onerror,d=!1,p="nr@seenError",l=0;c.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(h){"stack"in h&&(t(13),t(12),"addEventListener"in window&&t(6),c.xhrWrappable&&t(14),d=!0)}s.on("fn-start",function(t,e,n){d&&(l+=1)}),s.on("fn-err",function(t,e,n){d&&!n[p]&&(f(n,p,function(){return!0}),this.thrown=!0,o(n))}),s.on("fn-end",function(){d&&!this.thrown&&l>0&&(l-=1)}),s.on("internal-error",function(t){i("ierr",[t,c.now(),!0])})},{}],3:[function(t,e,n){t("loader").features.ins=!0},{}],4:[function(t,e,n){function r(){j++,L=y.hash,this[u]=x.now()}function o(){j--,y.hash!==L&&i(0,!0);var t=x.now();this[h]=~~this[h]+t-this[u],this[d]=t}function i(t,e){E.emit("newURL",[""+y,e])}function a(t,e){t.on(e,function(){this[e]=x.now()})}var s="-start",c="-end",f="-body",u="fn"+s,d="fn"+c,p="cb"+s,l="cb"+c,h="jsTime",m="fetch",v="addEventListener",w=window,y=w.location,x=t("loader");if(w[v]&&x.xhrWrappable){var g=t(10),b=t(11),E=t(8),R=t(6),O=t(13),C=t(7),P=t(14),T=t(9),N=t("ee"),S=N.get("tracer");t(16),x.features.spa=!0;var L,j=0;N.on(u,r),N.on(p,r),N.on(d,o),N.on(l,o),N.buffer([u,d,"xhr-done","xhr-resolved"]),R.buffer([u]),O.buffer(["setTimeout"+c,"clearTimeout"+s,u]),P.buffer([u,"new-xhr","send-xhr"+s]),C.buffer([m+s,m+"-done",m+f+s,m+f+c]),E.buffer(["newURL"]),g.buffer([u]),b.buffer(["propagate",p,l,"executor-err","resolve"+s]),S.buffer([u,"no-"+u]),T.buffer(["new-jsonp","cb-start","jsonp-error","jsonp-end"]),a(P,"send-xhr"+s),a(N,"xhr-resolved"),a(N,"xhr-done"),a(C,m+s),a(C,m+"-done"),a(T,"new-jsonp"),a(T,"jsonp-end"),a(T,"cb-start"),E.on("pushState-end",i),E.on("replaceState-end",i),w[v]("hashchange",i,!0),w[v]("load",i,!0),w[v]("popstate",function(){i(0,j>1)},!0)}},{}],5:[function(t,e,n){function r(t){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var o=t("ee"),i=t("handle"),a=t(13),s=t(12),c="learResourceTimings",f="addEventListener",u="resourcetimingbufferfull",d="bstResource",p="resource",l="-start",h="-end",m="fn"+l,v="fn"+h,w="bstTimer",y="pushState",x=t("loader");x.features.stn=!0,t(8);var g=NREUM.o.EV;o.on(m,function(t,e){var n=t[0];n instanceof g&&(this.bstStart=x.now())}),o.on(v,function(t,e){var n=t[0];n instanceof g&&i("bst",[n,e,this.bstStart,x.now()])}),a.on(m,function(t,e,n){this.bstStart=x.now(),this.bstType=n}),a.on(v,function(t,e){i(w,[e,this.bstStart,x.now(),this.bstType])}),s.on(m,function(){this.bstStart=x.now()}),s.on(v,function(t,e){i(w,[e,this.bstStart,x.now(),"requestAnimationFrame"])}),o.on(y+l,function(t){this.time=x.now(),this.startPath=location.pathname+location.hash}),o.on(y+h,function(t){i("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),f in window.performance&&(window.performance["c"+c]?window.performance[f](u,function(t){i(d,[window.performance.getEntriesByType(p)]),window.performance["c"+c]()},!1):window.performance[f]("webkit"+u,function(t){i(d,[window.performance.getEntriesByType(p)]),window.performance["webkitC"+c]()},!1)),document[f]("scroll",r,{passive:!0}),document[f]("keypress",r,!1),document[f]("click",r,!1)}},{}],6:[function(t,e,n){function r(t){for(var e=t;e&&!e.hasOwnProperty(u);)e=Object.getPrototypeOf(e);e&&o(e)}function o(t){s.inPlace(t,[u,d],"-",i)}function i(t,e){return t[1]}var a=t("ee").get("events"),s=t(26)(a,!0),c=t("gos"),f=XMLHttpRequest,u="addEventListener",d="removeEventListener";e.exports=a,"getPrototypeOf"in Object?(r(document),r(window),r(f.prototype)):f.prototype.hasOwnProperty(u)&&(o(window),o(f.prototype)),a.on(u+"-start",function(t,e){var n=t[1],r=c(n,"nr@wrapped",function(){function t(){if("function"==typeof n.handleEvent)return n.handleEvent.apply(n,arguments)}var e={object:t,"function":n}[typeof n];return e?s(e,"fn-",null,e.name||"anonymous"):n});this.wrapped=t[1]=r}),a.on(d+"-start",function(t){t[1]=this.wrapped||t[1]})},{}],7:[function(t,e,n){function r(t,e,n){var r=t[e];"function"==typeof r&&(t[e]=function(){var t=r.apply(this,arguments);return o.emit(n+"start",arguments,t),t.then(function(e){return o.emit(n+"end",[null,e],t),e},function(e){throw o.emit(n+"end",[e],t),e})})}var o=t("ee").get("fetch"),i=t(23);e.exports=o;var a=window,s="fetch-",c=s+"body-",f=["arrayBuffer","blob","json","text","formData"],u=a.Request,d=a.Response,p=a.fetch,l="prototype";u&&d&&p&&(i(f,function(t,e){r(u[l],e,c),r(d[l],e,c)}),r(a,"fetch",s),o.on(s+"end",function(t,e){var n=this;if(e){var r=e.headers.get("content-length");null!==r&&(n.rxSize=r),o.emit(s+"done",[null,e],n)}else o.emit(s+"done",[t],n)}))},{}],8:[function(t,e,n){var r=t("ee").get("history"),o=t(26)(r);e.exports=r;var i=window.history&&window.history.constructor&&window.history.constructor.prototype,a=window.history;i&&i.pushState&&i.replaceState&&(a=i),o.inPlace(a,["pushState","replaceState"],"-")},{}],9:[function(t,e,n){function r(t){function e(){c.emit("jsonp-end",[],p),t.removeEventListener("load",e,!1),t.removeEventListener("error",n,!1)}function n(){c.emit("jsonp-error",[],p),c.emit("jsonp-end",[],p),t.removeEventListener("load",e,!1),t.removeEventListener("error",n,!1)}var r=t&&"string"==typeof t.nodeName&&"script"===t.nodeName.toLowerCase();if(r){var o="function"==typeof t.addEventListener;if(o){var a=i(t.src);if(a){var u=s(a),d="function"==typeof u.parent[u.key];if(d){var p={};f.inPlace(u.parent,[u.key],"cb-",p),t.addEventListener("load",e,!1),t.addEventListener("error",n,!1),c.emit("new-jsonp",[t.src],p)}}}}}function o(){return"addEventListener"in window}function i(t){var e=t.match(u);return e?e[1]:null}function a(t,e){var n=t.match(p),r=n[1],o=n[3];return o?a(o,e[r]):e[r]}function s(t){var e=t.match(d);return e&&e.length>=3?{key:e[2],parent:a(e[1],window)}:{key:t,parent:window}}var c=t("ee").get("jsonp"),f=t(26)(c);if(e.exports=c,o()){var u=/[?&](?:callback|cb)=([^&#]+)/,d=/(.*)\.([^.]+)/,p=/^(\w+)(\.|$)(.*)$/,l=["appendChild","insertBefore","replaceChild"];Node&&Node.prototype&&Node.prototype.appendChild?f.inPlace(Node.prototype,l,"dom-"):(f.inPlace(HTMLElement.prototype,l,"dom-"),f.inPlace(HTMLHeadElement.prototype,l,"dom-"),f.inPlace(HTMLBodyElement.prototype,l,"dom-")),c.on("dom-start",function(t){r(t[0])})}},{}],10:[function(t,e,n){var r=t("ee").get("mutation"),o=t(26)(r),i=NREUM.o.MO;e.exports=r,i&&(window.MutationObserver=function(t){return this instanceof i?new i(o(t,"fn-")):i.apply(this,arguments)},MutationObserver.prototype=i.prototype)},{}],11:[function(t,e,n){function r(t){var e=a.context(),n=s(t,"executor-",e),r=new f(n);return a.context(r).getCtx=function(){return e},a.emit("new-promise",[r,e],e),r}function o(t,e){return e}var i=t(26),a=t("ee").get("promise"),s=i(a),c=t(23),f=NREUM.o.PR;e.exports=a,f&&(window.Promise=r,["all","race"].forEach(function(t){var e=f[t];f[t]=function(n){function r(t){return function(){a.emit("propagate",[null,!o],i),o=o||!t}}var o=!1;c(n,function(e,n){Promise.resolve(n).then(r("all"===t),r(!1))});var i=e.apply(f,arguments),s=f.resolve(i);return s}}),["resolve","reject"].forEach(function(t){var e=f[t];f[t]=function(t){var n=e.apply(f,arguments);return t!==n&&a.emit("propagate",[t,!0],n),n}}),f.prototype["catch"]=function(t){return this.then(null,t)},f.prototype=Object.create(f.prototype,{constructor:{value:r}}),c(Object.getOwnPropertyNames(f),function(t,e){try{r[e]=f[e]}catch(n){}}),a.on("executor-start",function(t){t[0]=s(t[0],"resolve-",this),t[1]=s(t[1],"resolve-",this)}),a.on("executor-err",function(t,e,n){t[1](n)}),s.inPlace(f.prototype,["then"],"then-",o),a.on("then-start",function(t,e){this.promise=e,t[0]=s(t[0],"cb-",this),t[1]=s(t[1],"cb-",this)}),a.on("then-end",function(t,e,n){this.nextPromise=n;var r=this.promise;a.emit("propagate",[r,!0],n)}),a.on("cb-end",function(t,e,n){a.emit("propagate",[n,!0],this.nextPromise)}),a.on("propagate",function(t,e,n){this.getCtx&&!e||(this.getCtx=function(){if(t instanceof Promise)var e=a.context(t);return e&&e.getCtx?e.getCtx():this})}),r.toString=function(){return""+f})},{}],12:[function(t,e,n){var r=t("ee").get("raf"),o=t(26)(r),i="equestAnimationFrame";e.exports=r,o.inPlace(window,["r"+i,"mozR"+i,"webkitR"+i,"msR"+i],"raf-"),r.on("raf-start",function(t){t[0]=o(t[0],"fn-")})},{}],13:[function(t,e,n){function r(t,e,n){t[0]=a(t[0],"fn-",null,n)}function o(t,e,n){this.method=n,this.timerDuration=isNaN(t[1])?0:+t[1],t[0]=a(t[0],"fn-",this,n)}var i=t("ee").get("timer"),a=t(26)(i),s="setTimeout",c="setInterval",f="clearTimeout",u="-start",d="-";e.exports=i,a.inPlace(window,[s,"setImmediate"],s+d),a.inPlace(window,[c],c+d),a.inPlace(window,[f,"clearImmediate"],f+d),i.on(c+u,r),i.on(s+u,o)},{}],14:[function(t,e,n){function r(t,e){d.inPlace(e,["onreadystatechange"],"fn-",s)}function o(){var t=this,e=u.context(t);t.readyState>3&&!e.resolved&&(e.resolved=!0,u.emit("xhr-resolved",[],t)),d.inPlace(t,y,"fn-",s)}function i(t){x.push(t),h&&(b?b.then(a):v?v(a):(E=-E,R.data=E))}function a(){for(var t=0;t<x.length;t++)r([],x[t]);x.length&&(x=[])}function s(t,e){return e}function c(t,e){for(var n in t)e[n]=t[n];return e}t(6);var f=t("ee"),u=f.get("xhr"),d=t(26)(u),p=NREUM.o,l=p.XHR,h=p.MO,m=p.PR,v=p.SI,w="readystatechange",y=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],x=[];e.exports=u;var g=window.XMLHttpRequest=function(t){var e=new l(t);try{u.emit("new-xhr",[e],e),e.addEventListener(w,o,!1)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}return e};if(c(l,g),g.prototype=l.prototype,d.inPlace(g.prototype,["open","send"],"-xhr-",s),u.on("send-xhr-start",function(t,e){r(t,e),i(e)}),u.on("open-xhr-start",r),h){var b=m&&m.resolve();if(!v&&!m){var E=1,R=document.createTextNode(E);new h(a).observe(R,{characterData:!0})}}else f.on("fn-end",function(t){t[0]&&t[0].type===w||a()})},{}],15:[function(t,e,n){function r(){var t=window.NREUM,e=t.info.accountID||null,n=t.info.agentID||null,r=t.info.trustKey||null,i="btoa"in window&&"function"==typeof window.btoa;if(!e||!n||!i)return null;var a={v:[0,1],d:{ty:"Browser",ac:e,ap:n,id:o.generateCatId(),tr:o.generateCatId(),ti:Date.now()}};return r&&e!==r&&(a.d.tk=r),btoa(JSON.stringify(a))}var o=t(21);e.exports={generateTraceHeader:r}},{}],16:[function(t,e,n){function r(t){var e=this.params,n=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;r<l;r++)t.removeEventListener(p[r],this.listener,!1);e.aborted||(n.duration=s.now()-this.startTime,this.loadCaptureCalled||4!==t.readyState?null==e.status&&(e.status=0):a(this,t),n.cbTime=this.cbTime,d.emit("xhr-done",[t],t),c("xhr",[e,n,this.startTime]))}}function o(t,e){var n=t.responseType;if("json"===n&&null!==e)return e;var r="arraybuffer"===n||"blob"===n||"json"===n?t.response:t.responseText;return v(r)}function i(t,e){var n=f(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}function a(t,e){t.params.status=e.status;var n=o(e,t.lastSize);if(n&&(t.metrics.rxSize=n),t.sameOrigin){var r=e.getResponseHeader("X-NewRelic-App-Data");r&&(t.params.cat=r.split(", ").pop())}t.loadCaptureCalled=!0}var s=t("loader");if(s.xhrWrappable){var c=t("handle"),f=t(17),u=t(15).generateTraceHeader,d=t("ee"),p=["load","error","abort","timeout"],l=p.length,h=t("id"),m=t(20),v=t(19),w=window.XMLHttpRequest;s.features.xhr=!0,t(14),d.on("new-xhr",function(t){var e=this;e.totalCbs=0,e.called=0,e.cbTime=0,e.end=r,e.ended=!1,e.xhrGuids={},e.lastSize=null,e.loadCaptureCalled=!1,t.addEventListener("load",function(n){a(e,t)},!1),m&&(m>34||m<10)||window.opera||t.addEventListener("progress",function(t){e.lastSize=t.loaded},!1)}),d.on("open-xhr-start",function(t){this.params={method:t[0]},i(this,t[1]),this.metrics={}}),d.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid);var n=!1;if("init"in NREUM&&"distributed_tracing"in NREUM.init&&(n=!!NREUM.init.distributed_tracing.enabled),n&&this.sameOrigin){var r=u();r&&e.setRequestHeader("newrelic",r)}}),d.on("send-xhr-start",function(t,e){var n=this.metrics,r=t[0],o=this;if(n&&r){var i=v(r);i&&(n.txSize=i)}this.startTime=s.now(),this.listener=function(t){try{"abort"!==t.type||o.loadCaptureCalled||(o.params.aborted=!0),("load"!==t.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof e.onload))&&o.end(e)}catch(n){try{d.emit("internal-error",[n])}catch(r){}}};for(var a=0;a<l;a++)e.addEventListener(p[a],this.listener,!1)}),d.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),d.on("xhr-load-added",function(t,e){var n=""+h(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),d.on("xhr-load-removed",function(t,e){var n=""+h(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),d.on("addEventListener-end",function(t,e){e instanceof w&&"load"===t[0]&&d.emit("xhr-load-added",[t[1],t[2]],e)}),d.on("removeEventListener-end",function(t,e){e instanceof w&&"load"===t[0]&&d.emit("xhr-load-removed",[t[1],t[2]],e)}),d.on("fn-start",function(t,e,n){e instanceof w&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=s.now()))}),d.on("fn-end",function(t,e){this.xhrCbStart&&d.emit("xhr-cb-time",[s.now()-this.xhrCbStart,this.onload,e],e)})}},{}],17:[function(t,e,n){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname);var i=!e.protocol||":"===e.protocol||e.protocol===n.protocol,a=e.hostname===document.domain&&e.port===n.port;return r.sameOrigin=i&&(!e.hostname||a),r}},{}],18:[function(t,e,n){function r(){}function o(t,e,n){return function(){return i(t,[f.now()].concat(s(arguments)),e?null:this,n),e?void 0:this}}var i=t("handle"),a=t(23),s=t(24),c=t("ee").get("tracer"),f=t("loader"),u=NREUM;"undefined"==typeof window.newrelic&&(newrelic=u);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(t,e){u[e]=o(p+e,!0,"api")}),u.addPageAction=o(p+"addPageAction",!0),u.setCurrentRouteName=o(p+"routeName",!0),e.exports=newrelic,u.interaction=function(){return(new r).get()};var h=r.prototype={createTracer:function(t,e){var n={},r=this,o="function"==typeof e;return i(l+"tracer",[f.now(),t,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[f.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){h[e]=o(l+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),i("err",[t,f.now(),!1,e])}},{}],19:[function(t,e,n){e.exports=function(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(e){return}}}},{}],20:[function(t,e,n){var r=0,o=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);o&&(r=+o[1]),e.exports=r},{}],21:[function(t,e,n){function r(){function t(){return e?15&e[n++]:16*Math.random()|0}var e=null,n=0,r=window.crypto||window.msCrypto;r&&r.getRandomValues&&(e=r.getRandomValues(new Uint8Array(31)));for(var o,i="xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",a="",s=0;s<i.length;s++)o=i[s],"x"===o?a+=t().toString(16):"y"===o?(o=3&t()|8,a+=o.toString(16)):a+=o;return a}function o(){function t(){return e?15&e[n++]:16*Math.random()|0}var e=null,n=0,r=window.crypto||window.msCrypto;r&&r.getRandomValues&&Uint8Array&&(e=r.getRandomValues(new Uint8Array(31)));for(var o=[],i=0;i<16;i++)o.push(t().toString(16));return o.join("")}e.exports={generateUuid:r,generateCatId:o}},{}],22:[function(t,e,n){function r(t,e){if(!o)return!1;if(t!==o)return!1;if(!e)return!0;if(!i)return!1;for(var n=i.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var s=navigator.userAgent,c=s.match(a);c&&s.indexOf("Chrome")===-1&&s.indexOf("Chromium")===-1&&(o="Safari",i=c[1])}e.exports={agent:o,version:i,match:r}},{}],23:[function(t,e,n){function r(t,e){var n=[],r="",i=0;for(r in t)o.call(t,r)&&(n[i]=e(r,t[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],24:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(o<0?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=r},{}],25:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],26:[function(t,e,n){function r(t){return!(t&&t instanceof Function&&t.apply&&!t[a])}var o=t("ee"),i=t(24),a="nr@original",s=Object.prototype.hasOwnProperty,c=!1;e.exports=function(t,e){function n(t,e,n,o){function nrWrapper(){var r,a,s,c;try{a=this,r=i(arguments),s="function"==typeof n?n(r,a):n||{}}catch(f){p([f,"",[r,a,o],s])}u(e+"start",[r,a,o],s);try{return c=t.apply(a,r)}catch(d){throw u(e+"err",[r,a,d],s),d}finally{u(e+"end",[r,a,c],s)}}return r(t)?t:(e||(e=""),nrWrapper[a]=t,d(t,nrWrapper),nrWrapper)}function f(t,e,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<e.length;c++)s=e[c],a=t[s],r(a)||(t[s]=n(a,f?s+o:o,i,s))}function u(n,r,o){if(!c||e){var i=c;c=!0;try{t.emit(n,r,o,e)}catch(a){p([a,n,r,o])}c=i}}function d(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){p([r])}for(var o in t)s.call(t,o)&&(e[o]=t[o]);return e}function p(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=o),n.inPlace=f,n.flag=a,n}},{}],ee:[function(t,e,n){function r(){}function o(t){function e(t){return t&&t instanceof r?t:t?c(t,s,i):i()}function n(n,r,o,i){if(!p.aborted||i){t&&t(n,r,o);for(var a=e(o),s=m(n),c=s.length,f=0;f<c;f++)s[f].apply(a,r);var d=u[x[n]];return d&&d.push([g,n,r,a]),a}}function l(t,e){y[t]=m(t).concat(e)}function h(t,e){var n=y[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function m(t){return y[t]||[]}function v(t){return d[t]=d[t]||o(n)}function w(t,e){f(t,function(t,n){e=e||"feature",x[n]=e,e in u||(u[e]=[])})}var y={},x={},g={on:l,addEventListener:l,removeEventListener:h,emit:n,get:v,listeners:m,context:e,buffer:w,abort:a,aborted:!1};return g}function i(){return new r}function a(){(u.api||u.feature)&&(p.aborted=!0,u=p.backlog={})}var s="nr@context",c=t("gos"),f=t(23),u={},d={},p=e.exports=o();p.backlog=u},{}],gos:[function(t,e,n){function r(t,e,n){if(o.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[e]=r,r}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){o.buffer([t],r),o.emit(t,e,n)}var o=t("ee").get("handle");e.exports=r,r.ee=o},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!E++){var t=b.info=NREUM.info,e=l.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();f(x,function(e,n){t[e]||(t[e]=n)}),c("mark",["onload",a()+b.offset],null,"api");var n=l.createElement("script");n.src="https://"+t.agent,e.parentNode.insertBefore(n,e)}}function o(){"complete"===l.readyState&&i()}function i(){c("mark",["domContent",a()+b.offset],null,"api")}function a(){return R.exists&&performance.now?Math.round(performance.now()):(s=Math.max((new Date).getTime(),s))-b.offset}var s=(new Date).getTime(),c=t("handle"),f=t(23),u=t("ee"),d=t(22),p=window,l=p.document,h="addEventListener",m="attachEvent",v=p.XMLHttpRequest,w=v&&v.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:v,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var y=""+location,x={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-spa-1130.min.js"},g=v&&w&&w[h]&&!/CriOS/.test(navigator.userAgent),b=e.exports={offset:s,now:a,origin:y,features:{},xhrWrappable:g,userAgent:d};t(18),l[h]?(l[h]("DOMContentLoaded",i,!1),p[h]("load",r,!1)):(l[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",s],null,"api");var E=0,R=t(25)},{}]},{},["loader",2,16,5,3,4]);
+;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"4558326637",applicationID:"388202469",sa:1}
+</script>
+<style data-styled-components=""></style><style data-emotion=""></style></head>
+<body id="gitignore" class="wac git tutorials saving-changes gitignore scrolled hoverable content-loaded"><div class="optanon-alert-box-wrapper  " role="alertdialog" aria-labelledby="alert-box-title" aria-describedby="alert-box-message" style="bottom: 0px;"><div class="optanon-alert-box-bottom-top"><div class="optanon-alert-box-corner-close"><button class="optanon-alert-box-close banner-close-button" aria-label="Close" title="Close" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Banner Close Button');" tabindex="4"></button></div></div><div class="optanon-alert-box-bg"><div class="optanon-alert-box-logo"> </div><div class="optanon-alert-box-body"><p class="optanon-alert-box-title legacy-banner-title sr-only" id="alert-box-title" role="heading" aria-level="2">Cookie Notice</p><p class="banner-content" id="alert-box-message">This site uses cookies to improve your browsing experience, perform analytics and research, and conduct advertising. To change your preferences, click Cookie Settings. Otherwise, clicking on the the website, closing the banner, or clicking Accept all Cookies indicates you agree to our use of cookies on your device.    <a href="https://www.atlassian.com/legal/cookies" class="banner-policy-link" tabindex="1" aria-label="Atlassian Cookies and Tracking Notice">Atlassian Cookies and Tracking Notice</a></p></div><div class="optanon-clearfix"></div><div class="optanon-alert-box-button-container"><div class="optanon-alert-box-button optanon-button-close"><div class="optanon-alert-box-button-middle"><button class="optanon-alert-box-close" aria-label="Close">Close</button></div></div><div class="optanon-alert-box-button optanon-button-allow"><div class="optanon-alert-box-button-middle accept-cookie-container"><button class="optanon-allow-all accept-cookies-button" title="Accept all Cookies" aria-label="Accept all Cookies" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Banner Accept Cookies');" tabindex="3">Accept all Cookies</button></div></div><div class="optanon-alert-box-button optanon-button-more"><div class="optanon-alert-box-button-middle"><button class="optanon-toggle-display cookie-settings-button" title="Cookie Settings" aria-label="Cookie Settings" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Banner Open Preferences');" tabindex="2">Cookie Settings</button></div></div></div><div class="optanon-clearfix optanon-alert-box-bottom-padding"></div></div></div><div id="optanon" class="modern"><div id="optanon-popup-bg"></div><div id="optanon-popup-wrapper" role="dialog" aria-modal="true" tabindex="-1"><div id="optanon-popup-top"><button onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Preferences Close Button');" aria-label="Close" class="optanon-close-link optanon-close optanon-close-ui" title="Close"><div id="optanon-close" style="background: url(https://cdn.cookielaw.org/skins/4.3.3/default_flat_bottom_two_button_black/v2/images/optanon-pop-up-close.png);width:34px;height:34px;"></div></button></div><div id="optanon-popup-body"><div id="optanon-popup-body-left"><div id="optanon-popup-body-left-shading"></div><div id="optanon-branding-top-logo" style="background-image: url('https://cdn.cookielaw.org/logos/5878/5878:atlassian.com/Atlassian%20white%20logo.png') !important;"></div><ul id="optanon-menu" aria-label="Navigation Menu" role="tablist"><li class="menu-item-on menu-item-about" title="Your Privacy"><p class="preference-menu-item"><button role="tab" aria-selected="true" aria-controls="tab-0" id="Your-Privacy">Your Privacy</button></p></li><li class="menu-item-necessary menu-item-on" title="Strictly Necessary Cookies"><p class="preference-menu-item"><button role="tab" aria-selected="false" aria-controls="tab-3" id="Strictly-Necessary">Strictly Necessary Cookies</button></p></li><li class="menu-item-on menu-item-performance" title="Performance and Analytics Cookies"><p class="preference-menu-item"><button role="tab" aria-selected="false" aria-controls="tab-4" id="Performance-and">Performance and Analytics Cookies</button></p></li><li class="menu-item-on menu-item-functional" title="Functional Cookies"><p class="preference-menu-item"><button role="tab" aria-selected="false" aria-controls="tab-8" id="Functional-Cookies">Functional Cookies</button></p></li><li class="menu-item-off menu-item-advertising" title="Targeting Cookies"><p class="preference-menu-item"><button role="tab" aria-selected="false" aria-controls="tab-12" id="Targeting-Cookies">Targeting Cookies</button></p></li><li class="menu-item-moreinfo menu-item-off" title="Atlassian Cookies and Tracking Notice"><p class="preference-menu-item"><a target="_blank" aria-label="Atlassian Cookies and Tracking Notice" href="https://www.atlassian.com/legal/cookies" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Preferences Cookie Policy');">Atlassian Cookies and Tracking Notice</a></p></li></ul></div><div id="optanon-popup-body-right"><p role="heading" aria-level="2" class="legacy-preference-banner-title h2" aria-label="Privacy Preference Centre">Privacy Preference Centre</p><div class="vendor-header-container"><p class="header-3" role="heading" aria-level="3"></p><div id="optanon-popup-more-info-bar"><div class="optanon-status"><div class="optanon-status-editable"><form><span class="fieldset"><p><input type="checkbox" value="check" id="chkMain" checked="" class="legacy-group-status optanon-status-checkbox"><label for="chkMain">Active</label></p></span></form></div><div class="optanon-status-always-active optanon-status-on"><p>Always Active</p></div></div></div></div><div class="optanon-main-info-text" role="tabpanel"></div></div><div class="optanon-bottom-spacer"></div></div><div id="optanon-popup-bottom"> <a href="https://onetrust.com/poweredbyonetrust" target="_blank"><div id="optanon-popup-bottom-logo" style="background: url(https://cdn.cookielaw.org/skins/4.3.3/default_flat_bottom_two_button_black/v2/images/cookie-collective-top-bottom.png);width:155px;height:35px;" title="powered by OneTrust"></div></a><div class="optanon-button-wrapper optanon-save-settings-button optanon-close optanon-close-consent"><div class="optanon-white-button-left"></div><div class="optanon-white-button-middle"><button title="Save Settings" aria-label="Save Settings" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Preferences Save Settings');">Save Settings</button></div><div class="optanon-white-button-right"></div></div><div class="optanon-button-wrapper optanon-allow-all-button optanon-allow-all" style="display: block;"><div class="optanon-white-button-left"></div><div class="optanon-white-button-middle"><button title="Allow All" aria-label="Allow All" onclick="Optanon.TriggerGoogleAnalyticsEvent('OneTrust Cookie Consent', 'Preferences Allow All');">Allow All</button></div><div class="optanon-white-button-right"></div></div></div></div></div>
+<div id="header">
+<div class="tutorial-sidebar is-active">
+<div class="_bumper"></div>
+<div class="_wrap">
+<ol>
+<div class="_group">
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="cms-link cms-link--text group-link">Learn Git</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="cms-link cms-link--text tutorial-link">Learn Git with Bitbucket Cloud</a>
+<div class="_toc">
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#create-the-repository" class="cms-link cms-link--text section-link">Create a Git repository</a>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#copy-and-add-files" class="cms-link cms-link--text section-link">Copy your Git repository and add files</a>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#pull-changes" class="cms-link cms-link--text section-link">Pull changes from your Git repository on Bitbucket Cloud</a>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#git-branch-to-merge" class="cms-link cms-link--text section-link">Use a Git branch to merge a file</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud" class="cms-link cms-link--text tutorial-link">Learn about code review in Bitbucket Cloud</a>
+<div class="_toc">
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#create-repository" class="cms-link cms-link--text section-link">Create a repository and add a teammate</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#clone-branch" class="cms-link cms-link--text section-link">Clone and make a change on a new branch</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#im-using-git" class="cms-link cms-link--text section-link">If you're using command line</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#im-using-sourcetree" class="cms-link cms-link--text section-link">If you're using Sourcetree</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/learn-branching-with-bitbucket-cloud" class="cms-link cms-link--text tutorial-link">Learn branching in Bitbucket Cloud</a>
+<div class="_toc">
+<a href="/git/tutorials/learn-branching-with-bitbucket-cloud#create-the-repository" class="cms-link cms-link--text section-link">Get set up</a>
+<a href="/git/tutorials/learn-branching-with-bitbucket-cloud#review-branching-workflow" class="cms-link cms-link--text section-link">Review branching workflow</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket" class="cms-link cms-link--text tutorial-link">Learn undoing changes with Bitbucket Cloud</a>
+<div class="_toc">
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-status" class="cms-link cms-link--text section-link">git status</a>
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-log" class="cms-link cms-link--text section-link">git log</a>
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-reset" class="cms-link cms-link--text section-link">git reset</a>
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-revert" class="cms-link cms-link--text section-link">git revert</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/what-is-version-control" class="cms-link cms-link--text group-link">Beginner</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/what-is-version-control" class="cms-link cms-link--text tutorial-link">What is version control</a>
+<div class="_toc">
+<a href="/git/tutorials/what-is-version-control#benefits-of-version-control" class="cms-link cms-link--text section-link">Benefits of version control</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/source-code-management" class="cms-link cms-link--text tutorial-link">Source Code Management</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/what-is-git" class="cms-link cms-link--text tutorial-link">What is Git</a>
+<div class="_toc">
+<a href="/git/tutorials/what-is-git#performance" class="cms-link cms-link--text section-link">Performance</a>
+<a href="/git/tutorials/what-is-git#security" class="cms-link cms-link--text section-link">Security</a>
+<a href="/git/tutorials/what-is-git#flexibility" class="cms-link cms-link--text section-link">Flexibility</a>
+<a href="/git/tutorials/what-is-git#version-control-with-git" class="cms-link cms-link--text section-link">Version control with Git</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/why-git" class="cms-link cms-link--text tutorial-link">Why Git for your Organization</a>
+<div class="_toc">
+<a href="/git/tutorials/why-git#git-for-developers" class="cms-link cms-link--text section-link">Git for developers</a>
+<a href="/git/tutorials/why-git#git-for-marketing" class="cms-link cms-link--text section-link">Git for marketing</a>
+<a href="/git/tutorials/why-git#git-for-product-management" class="cms-link cms-link--text section-link">Git for product management</a>
+<a href="/git/tutorials/why-git#git-for-designers" class="cms-link cms-link--text section-link">Git for designers</a>
+<a href="/git/tutorials/why-git#git-for-customer-support" class="cms-link cms-link--text section-link">Git for customer support</a>
+<a href="/git/tutorials/why-git#git-for-human-resources" class="cms-link cms-link--text section-link">Git for human resources</a>
+<a href="/git/tutorials/why-git#git-for-anyone-managing-budget" class="cms-link cms-link--text section-link">Git for anyone managing a budget</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/install-git" class="cms-link cms-link--text tutorial-link">Install Git</a>
+<div class="_toc">
+<a href="/git/tutorials/install-git#mac-os-x" class="cms-link cms-link--text section-link">Install Git on Mac OS X</a>
+<a href="/git/tutorials/install-git#windows" class="cms-link cms-link--text section-link">Install Git on Windows</a>
+<a href="/git/tutorials/install-git#linux" class="cms-link cms-link--text section-link">Install Git on Linux</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-ssh" class="cms-link cms-link--text tutorial-link">Git SSH</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/atlassian-git-cheatsheet" class="cms-link cms-link--text tutorial-link">Git Cheatsheet</a>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/setting-up-a-repository" class="cms-link cms-link--text group-link">Getting Started</a>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/setting-up-a-repository" class="cms-link cms-link--text tutorial-link">Setting up a repository</a>
+<div class="_toc">
+<a href="/git/tutorials/setting-up-a-repository/git-init" class="cms-link cms-link--text section-link">git init</a>
+<a href="/git/tutorials/setting-up-a-repository/git-clone" class="cms-link cms-link--text section-link">git clone</a>
+<a href="/git/tutorials/setting-up-a-repository/git-config" class="cms-link cms-link--text section-link">git config</a>
+<a href="/git/tutorials/git-alias" class="cms-link cms-link--text section-link">git alias</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/saving-changes" class="cms-link cms-link--text tutorial-link active">Saving changes</a>
+<div class="_toc is-active">
+<a href="/git/tutorials/saving-changes" class="cms-link cms-link--text section-link">git add</a>
+<a href="/git/tutorials/saving-changes/git-commit" class="cms-link cms-link--text section-link">git commit</a>
+<a href="/git/tutorials/saving-changes/git-diff" class="cms-link cms-link--text section-link">git diff</a>
+<a href="/git/tutorials/saving-changes/git-stash" class="cms-link cms-link--text section-link">git stash</a>
+<a href="/git/tutorials/saving-changes/gitignore" class="cms-link cms-link--text section-link active">.gitignore</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text tutorial-link">Inspecting a repository</a>
+<div class="_toc">
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text section-link">git status</a>
+<a href="/git/tutorials/inspecting-a-repository/git-tag" class="cms-link cms-link--text section-link">git tag</a>
+<a href="/git/tutorials/inspecting-a-repository/git-blame" class="cms-link cms-link--text section-link">git blame</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/undoing-changes" class="cms-link cms-link--text tutorial-link">Undoing changes</a>
+<div class="_toc">
+<a href="/git/tutorials/undoing-changes" class="cms-link cms-link--text section-link">git checkout</a>
+<a href="/git/tutorials/undoing-changes/git-clean" class="cms-link cms-link--text section-link">git clean</a>
+<a href="/git/tutorials/undoing-changes/git-revert" class="cms-link cms-link--text section-link">git revert</a>
+<a href="/git/tutorials/undoing-changes/git-reset" class="cms-link cms-link--text section-link">git reset</a>
+<a href="/git/tutorials/undoing-changes/git-rm" class="cms-link cms-link--text section-link">git rm</a>
+</div>
+</div>
+<div class="_group-wrap is-active">
+<a href="/git/tutorials/rewriting-history" class="cms-link cms-link--text tutorial-link">Rewriting history</a>
+<div class="_toc">
+<a href="/git/tutorials/rewriting-history#git-commit--amend" class="cms-link cms-link--text section-link">git commit --amend</a>
+<a href="/git/tutorials/rewriting-history/git-rebase" class="cms-link cms-link--text section-link">git rebase</a>
+<a href="/git/tutorials/rewriting-history#git-rebase-i" class="cms-link cms-link--text section-link">git rebase -i</a>
+<a href="/git/tutorials/rewriting-history/git-reflog" class="cms-link cms-link--text section-link">git reflog</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/syncing" class="cms-link cms-link--text group-link">Collaborating</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/syncing" class="cms-link cms-link--text tutorial-link">Syncing</a>
+<div class="_toc">
+<a href="/git/tutorials/syncing" class="cms-link cms-link--text section-link">git remote</a>
+<a href="/git/tutorials/syncing/git-fetch" class="cms-link cms-link--text section-link">git fetch</a>
+<a href="/git/tutorials/syncing/git-push" class="cms-link cms-link--text section-link">git push</a>
+<a href="/git/tutorials/syncing/git-pull" class="cms-link cms-link--text section-link">git pull</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/making-a-pull-request" class="cms-link cms-link--text tutorial-link">Making a Pull Request</a>
+<div class="_toc">
+<a href="/git/tutorials/making-a-pull-request#how-it-works" class="cms-link cms-link--text section-link">How it works</a>
+<a href="/git/tutorials/making-a-pull-request#example" class="cms-link cms-link--text section-link">Example</a>
+<a href="/git/tutorials/making-a-pull-request#where-to-go" class="cms-link cms-link--text section-link">Where to go from here</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/using-branches" class="cms-link cms-link--text tutorial-link">Using branches</a>
+<div class="_toc">
+<a href="/git/tutorials/using-branches" class="cms-link cms-link--text section-link">git branch</a>
+<a href="/git/tutorials/using-branches/git-checkout" class="cms-link cms-link--text section-link">git checkout</a>
+<a href="/git/tutorials/using-branches/git-merge" class="cms-link cms-link--text section-link">git merge</a>
+<a href="/git/tutorials/using-branches/merge-conflicts" class="cms-link cms-link--text section-link">Merge conflicts</a>
+<a href="/git/tutorials/using-branches/merge-strategy" class="cms-link cms-link--text section-link">Merge strategies</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/comparing-workflows" class="cms-link cms-link--text tutorial-link">Comparing workflows</a>
+<div class="_toc">
+<a href="/git/tutorials/comparing-workflows#centralized-workflow" class="cms-link cms-link--text section-link">Centralized Workflow</a>
+<a href="/git/tutorials/comparing-workflows/feature-branch-workflow" class="cms-link cms-link--text section-link">Feature Branch Workflow</a>
+<a href="/git/tutorials/comparing-workflows/gitflow-workflow" class="cms-link cms-link--text section-link">Gitflow Workflow</a>
+<a href="/git/tutorials/comparing-workflows/forking-workflow" class="cms-link cms-link--text section-link">Forking Workflow</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration" class="cms-link cms-link--text group-link">Migrating to Git</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration" class="cms-link cms-link--text tutorial-link">SVN to Git - prepping for the migration</a>
+<div class="_toc">
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#for-administrators" class="cms-link cms-link--text section-link">For administrators</a>
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#basic-git-commands" class="cms-link cms-link--text section-link">Basic Git commands</a>
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#git-migration-tools" class="cms-link cms-link--text section-link">Git Migration Tools</a>
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#for-developers" class="cms-link cms-link--text section-link">For developers</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-overview" class="cms-link cms-link--text tutorial-link">Migrate to Git from SVN</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-prepare" class="cms-link cms-link--text tutorial-link">Prepare</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-convert" class="cms-link cms-link--text tutorial-link">Convert</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-synchronize" class="cms-link cms-link--text tutorial-link">Synchronize</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-share" class="cms-link cms-link--text tutorial-link">Share</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/migrating-migrate" class="cms-link cms-link--text tutorial-link">Migrate</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/perforce-git" class="cms-link cms-link--text tutorial-link">Perforce to Git - why to make the move</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/perforce-git-migration" class="cms-link cms-link--text tutorial-link">Migrating from Perforce to Git</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-move-repository" class="cms-link cms-link--text tutorial-link">How to move a Git repository with history</a>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/advanced-overview" class="cms-link cms-link--text group-link">Advanced Tips</a>
+<div class="_group-wrap">
+<a href="/git/tutorials/advanced-overview" class="cms-link cms-link--text tutorial-link">Advanced Git Tutorials</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/merging-vs-rebasing" class="cms-link cms-link--text tutorial-link">Merging vs. Rebasing</a>
+<div class="_toc">
+<a href="/git/tutorials/merging-vs-rebasing#conceptual-overview" class="cms-link cms-link--text section-link">Conceptual Overview</a>
+<a href="/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing" class="cms-link cms-link--text section-link">The Golden Rule of Rebasing</a>
+<a href="/git/tutorials/merging-vs-rebasing#workflow-walkthrough" class="cms-link cms-link--text section-link">Workflow Walkthrough</a>
+<a href="/git/tutorials/merging-vs-rebasing#summary" class="cms-link cms-link--text section-link">Summary</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/resetting-checking-out-and-reverting" class="cms-link cms-link--text tutorial-link">Resetting, Checking Out, and Reverting</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-log" class="cms-link cms-link--text tutorial-link">Advanced Git log</a>
+<div class="_toc">
+<a href="/git/tutorials/git-log#formatting-log-output" class="cms-link cms-link--text section-link">Formatting Log Output</a>
+<a href="/git/tutorials/git-log#filtering-the-commit-history" class="cms-link cms-link--text section-link">Filtering the Commit History</a>
+<a href="/git/tutorials/git-log#summary" class="cms-link cms-link--text section-link">Summary</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-hooks" class="cms-link cms-link--text tutorial-link">Git Hooks</a>
+<div class="_toc">
+<a href="/git/tutorials/git-hooks#conceptual-overview" class="cms-link cms-link--text section-link">Conceptual Overview</a>
+<a href="/git/tutorials/git-hooks#local-hooks" class="cms-link cms-link--text section-link">Local Hooks</a>
+<a href="/git/tutorials/git-hooks#server-side-hooks" class="cms-link cms-link--text section-link">Server-side Hooks</a>
+<a href="/git/tutorials/git-hooks#summary" class="cms-link cms-link--text section-link">Summary</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/refs-and-the-reflog" class="cms-link cms-link--text tutorial-link">Refs and the Reflog</a>
+<div class="_toc">
+<a href="/git/tutorials/refs-and-the-reflog#hashes" class="cms-link cms-link--text section-link">Hashes</a>
+<a href="/git/tutorials/refs-and-the-reflog#refs" class="cms-link cms-link--text section-link">Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#packed-refs" class="cms-link cms-link--text section-link">Packed Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#special-refs" class="cms-link cms-link--text section-link">Special Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#refspecs" class="cms-link cms-link--text section-link">Refspecs</a>
+<a href="/git/tutorials/refs-and-the-reflog#relative-refs" class="cms-link cms-link--text section-link">Relative Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#the-reflog" class="cms-link cms-link--text section-link">The Reflog</a>
+<a href="/git/tutorials/refs-and-the-reflog#summary" class="cms-link cms-link--text section-link">Summary</a>
+</div>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-lfs" class="cms-link cms-link--text tutorial-link">Git LFS</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-gc" class="cms-link cms-link--text tutorial-link">Git gc</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-prune" class="cms-link cms-link--text tutorial-link">Git prune</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/git-bash" class="cms-link cms-link--text tutorial-link">Git Bash</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/dotfiles" class="cms-link cms-link--text tutorial-link">How to store dotfiles</a>
+</div>
+<div class="_group-wrap">
+<a href="/git/tutorials/cherry-pick" class="cms-link cms-link--text tutorial-link">Git Cherry Pick</a>
+</div>
+</div>
+</ol>
+</div>
+</div>
+<div class="hamburger">
+<div class="_layer -top"></div>
+<div class="_layer -mid"></div>
+<div class="_layer -bottom"></div>
+</div>
+<div class="primary-nav">
+<div class="_wrapper">
+<ul class="_nav-list">
+<div>
+<li>
+<a href="/git" class="cms-link cms-link--text _nav-item -home">Home</a>
+</li>
+</div>
+<div>
+<li class="tutorials-nav" id="tutorials-nav-mobile">
+<h4 class="_nav-item -tutorials">Tutorials</h4>
+<div class="_sublist">  <ol>        <li class="_group">      <h5>Learn Git</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/learn-git-with-bitbucket-cloud">Learn Git with Bitbucket Cloud</a>        </li>                <li>          <a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud">Learn about code review in Bitbucket Cloud</a>        </li>                <li>          <a href="/git/tutorials/learn-branching-with-bitbucket-cloud">Learn branching in Bitbucket Cloud</a>        </li>                <li>          <a href="/git/tutorials/learn-undoing-changes-with-bitbucket">Learn undoing changes with Bitbucket Cloud</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Beginner</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/what-is-version-control">What is version control</a>        </li>                <li>          <a href="/git/tutorials/source-code-management">Source Code Management</a>        </li>                <li>          <a href="/git/tutorials/what-is-git">What is Git</a>        </li>                <li>          <a href="/git/tutorials/why-git">Why Git for your Organization</a>        </li>                <li>          <a href="/git/tutorials/install-git">Install Git</a>        </li>                <li>          <a href="/git/tutorials/git-ssh">Git SSH</a>        </li>                <li>          <a href="/git/tutorials/atlassian-git-cheatsheet">Git Cheatsheet</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Getting Started</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/setting-up-a-repository">Setting up a repository</a>        </li>                <li>          <a href="/git/tutorials/saving-changes">Saving changes</a>        </li>                <li>          <a href="/git/tutorials/inspecting-a-repository">Inspecting a repository</a>        </li>                <li>          <a href="/git/tutorials/undoing-changes">Undoing changes</a>        </li>                <li>          <a href="/git/tutorials/rewriting-history">Rewriting history</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Collaborating</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/syncing">Syncing</a>        </li>                <li>          <a href="/git/tutorials/making-a-pull-request">Making a Pull Request</a>        </li>                <li>          <a href="/git/tutorials/using-branches">Using branches</a>        </li>                <li>          <a href="/git/tutorials/comparing-workflows">Comparing workflows</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Migrating to Git</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/svn-to-git-prepping-your-team-migration">SVN to Git - prepping for the migration</a>        </li>                <li>          <a href="/git/tutorials/migrating-overview">Migrate to Git from SVN</a>        </li>                <li>          <a href="/git/tutorials/migrating-prepare">Prepare</a>        </li>                <li>          <a href="/git/tutorials/migrating-convert">Convert</a>        </li>                <li>          <a href="/git/tutorials/migrating-synchronize">Synchronize</a>        </li>                <li>          <a href="/git/tutorials/migrating-share">Share</a>        </li>                <li>          <a href="/git/tutorials/migrating-migrate">Migrate</a>        </li>                <li>          <a href="/git/tutorials/perforce-git">Perforce to Git - why to make the move</a>        </li>                <li>          <a href="/git/tutorials/perforce-git-migration">Migrating from Perforce to Git</a>        </li>                <li>          <a href="/git/tutorials/git-move-repository">How to move a Git repository with history</a>        </li>              </ol>    </li>        <li class="_group">      <h5>Advanced Tips</h5>      <ol class="_group-wrap">                <li>          <a href="/git/tutorials/advanced-overview">Advanced Git Tutorials</a>        </li>                <li>          <a href="/git/tutorials/merging-vs-rebasing">Merging vs. Rebasing</a>        </li>                <li>          <a href="/git/tutorials/resetting-checking-out-and-reverting">Resetting, Checking Out, and Reverting</a>        </li>                <li>          <a href="/git/tutorials/git-log">Advanced Git log</a>        </li>                <li>          <a href="/git/tutorials/git-hooks">Git Hooks</a>        </li>                <li>          <a href="/git/tutorials/refs-and-the-reflog">Refs and the Reflog</a>        </li>                <li>          <a href="/git/tutorials/git-lfs">Git LFS</a>        </li>                <li>          <a href="/git/tutorials/git-gc">Git gc</a>        </li>                <li>          <a href="/git/tutorials/git-prune">Git prune</a>        </li>                <li>          <a href="/git/tutorials/git-bash">Git Bash</a>        </li>                <li>          <a href="/git/tutorials/dotfiles">How to store dotfiles</a>        </li>                <li>          <a href="/git/tutorials/cherry-pick">Git Cherry Pick</a>        </li>              </ol>    </li>      </ol>  </div>
+</li>
+<li>
+<a href="/git/tutorials" class="cms-link cms-link--text _nav-item -tutorials">Tutorials</a>
+</li>
+</div>
+<div>
+<li>
+<a href="/git/articles" class="cms-link cms-link--text _nav-item -articles">Articles</a>
+</li>
+</div>
+<div>
+<li>
+<a href="/git/glossary" class="cms-link cms-link--text _nav-item -glossary">Glossary</a>
+</li>
+</div>
+</ul>
+</div>
+</div>
+<div class="topbar is-tutorial">
+<div class="_header -is-tutorial">
+<a href="/git/tutorials" class="active">Tutorials</a>
+</div>
+</div>
+<form class="newsletter">
+<input class="is-empty _input" type="email" placeholder="Enter Your Email For Git News">
+<button type="submit" class="_status icon-email-submit">Submit</button>
+</form>
+<a href="#footer" class="button green-hollow secondary newsletter-cta">Sign up</a>
+<a href="/git/search" class="search-button search-open ">
+<span class="_link icon-search">Search</span>
+</a>
+<a href="/git" class="search-button search-close -in-page hidden">
+<span class="_link icon-search-close -close">Search</span>
+</a>
+</div>
+<div class="page-wrap is-active -gray-bg tutorial-detail">
+<div id="content" class="_content">
+<div class="tutorial-hero">
+<div class="g-column g-12-12 text-center">
+<img src="https://wac-cdn.atlassian.com/dam/jcr:75f75cb6-a6ab-4f0b-ab29-e366914f513c/hero.svg?cdnVersion=534" alt="Saving changes">
+<h1>.gitignore</h1>
+<div class="g-column g-12-12 t-12-12 m-12-12 breadcrumbs">
+<a href="/git/tutorials/saving-changes" class="cms-link cms-link--text">git add</a>
+<a href="/git/tutorials/saving-changes/git-commit" class="cms-link cms-link--text">git commit</a>
+<a href="/git/tutorials/saving-changes/git-diff" class="cms-link cms-link--text">git diff</a>
+<a href="/git/tutorials/saving-changes/git-stash" class="cms-link cms-link--text">git stash</a>
+<a href="/git/tutorials/saving-changes/gitignore" class="cms-link cms-link--text">.gitignore</a>
+</div></div></div>
+<div class="g-row">
+<div class="g-column g-12-12 g-centered">
+<p>Git sees every file in your working copy as one of three things:</p>
+<ol>
+<li>tracked - a file which has been previously staged or committed;</li>
+<li>untracked - a file which <em>has not</em> been staged or committed; or</li>
+<li>ignored - a file which Git has been explicitly told to ignore.</li>
+</ol>
+<p>Ignored files are usually build artifacts and machine generated files that can be derived from your repository source or should otherwise not be committed. Some common examples are:</p>
+<ul>
+<li>dependency caches, such as the contents of <code>/node_modules</code> or <code>/packages</code></li>
+<li>compiled code, such as <code>.o</code>, <code>.pyc</code>, and <code>.class</code> files</li>
+<li>build output directories, such as <code>/bin</code>, <code>/out</code>, or <code>/target</code></li>
+<li>files generated at runtime, such as <code>.log</code>, <code>.lock</code>, or <code>.tmp</code></li>
+<li>hidden system files, such as <code>.DS_Store</code> or <code>Thumbs.db</code></li>
+<li>personal IDE config files, such as <code>.idea/workspace.xml</code></li>
+</ul>
+<p>Ignored files are tracked in a special file named <code>.gitignore</code> that is checked in at the root of your repository. There is no explicit git ignore command: instead the <code>.gitignore</code> file must be edited and committed by hand when you have new files that you wish to ignore. <code>.gitignore</code> files contain patterns that are matched against file names in your repository to determine whether or not they should be ignored.</p>
+<ul>
+<li>Ignoring files in Git
+<ul>
+<li><a href="#git-ignore-patterns">Git ignore patterns</a></li>
+<li><a href="#shared">Shared .gitignore files in your repository</a></li>
+<li><a href="#personal-git-ignore-rules">Personal Git ignore rules</a></li>
+<li><a href="#global-git-ignore-rules">Global Git ignore rules</a></li>
+<li><a href="#ignoring-a-previously-committed">Ignoring a previously committed file</a></li>
+<li><a href="#committing-an-ignored-file">Committing an ignored file</a></li>
+<li><a href="#stashing-an-ignored-file">Stashing an ignored file</a></li>
+<li><a href="#debugging">Debugging .gitignore files</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="git-ignore-patterns">Git ignore patterns</h2>
+<p><code>.gitignore</code> uses <a href="http://linux.die.net/man/7/glob">globbing patterns</a> to match against file names. You can construct your patterns using various symbols:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Example matches</th>
+<th>Explanation*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>**/logs </code> </td>
+<td> <code>logs/debug.log</code><br> <code>logs/monday/foo.bar</code><br> <code>build/logs/debug.log</code> </td>
+<td> You can prepend a pattern with a double asterisk to match directories anywhere in the repository. </td>
+</tr>
+<tr>
+<td> <code>**/logs/debug.log </code> </td>
+<td> <code>logs/debug.log</code><br> <code>build/logs/debug.log</code><br> <em>but not</em><br> <code>logs/build/debug.log</code> </td>
+<td> You can also use a double asterisk to match files based on their name and the name of their parent directory. </td>
+</tr>
+<tr>
+<td> <code>*.log</code> </td>
+<td> <code>debug.log</code><br> <code>foo.log</code><br> <code>.log</code><br> <code>logs/debug.log</code> </td>
+<td> An asterisk is a wildcard that matches zero or more characters. </td>
+</tr>
+<tr>
+<td> <code>*.log </code><br> <code>!important.log</code> </td>
+<td> <code>debug.log</code><br> <code>trace.log</code><br> <em>but not</em><br> <code>important.log</code><br> <code>logs/important.log</code> </td>
+<td> Prepending an exclamation mark to a pattern negates it. If a file matches a pattern, but <em>also</em> matches a negating pattern defined later in the file, it will not be ignored. </td>
+</tr>
+<tr>
+<td> <code>*.log </code><br> <code>!important/*.log</code><br> <code>trace.*</code> </td>
+<td> <code>debug.log</code><br> <code>important/trace.log</code><br> <em>but not</em><br> <code>important/debug.log</code> </td>
+<td> Patterns defined after a negating pattern will re-ignore any previously negated files. </td>
+</tr>
+<tr>
+<td> <code>/debug.log</code> </td>
+<td> <code>debug.log</code><br> <em>but not</em><br> <code>logs/debug.log</code> </td>
+<td> Prepending a slash matches files only in the repository root. </td>
+</tr>
+<tr>
+<td> <code>debug.log</code> </td>
+<td> <code>debug.log</code><br> <code>logs/debug.log</code> </td>
+<td> By default, patterns match files in any directory </td>
+</tr>
+<tr>
+<td> <code>debug?.log </code> </td>
+<td> <code>debug0.log</code><br> <code>debugg.log</code><br> <em>but not</em><br> <code>debug10.log</code> </td>
+<td> A question mark matches exactly one character. </td>
+</tr>
+<tr>
+<td> <code>debug[0-9].log </code> </td>
+<td> <code>debug0.log</code><br> <code>debug1.log</code><br> <em>but not</em><br> <code>debug10.log</code> </td>
+<td> Square brackets can also be used to match a single character from a specified range. </td>
+</tr>
+<tr>
+<td> <code>debug[01].log </code> </td>
+<td> <code>debug0.log</code><br> <code>debug1.log</code><br> <em>but not </em><br> <code>debug2.log</code><br> <code>debug01.log</code> </td>
+<td> Square brackets match a single character form the specified set. </td>
+</tr>
+<tr>
+<td> <code>debug[!01].log </code> </td>
+<td> <code>debug2.log</code><br> <em>but not</em><br> <code>debug0.log</code><br> <code>debug1.log</code><br> <code>debug01.log</code> </td>
+<td> An exclamation mark can be used to match any character except one from the specified set. </td>
+</tr>
+<tr>
+<td> <code>debug[a-z].log </code> </td>
+<td> <code>debuga.log</code><br> <code>debugb.log</code><br> <em>but not</em><br> <code>debug1.log</code> </td>
+<td> Ranges can be numeric or alphabetic. </td>
+</tr>
+<tr>
+<td> <code>logs</code> </td>
+<td> <code>logs</code><br> <code>logs/debug.log</code><br> <code>logs/latest/foo.bar</code><br> <code>build/logs</code><br> <code>build/logs/debug.log</code> </td>
+<td> If you don't append a slash, the pattern will match both files and the contents of directories with that name. In the example matches on the left, both directories and files named <em>logs</em> are ignored </td>
+</tr>
+<tr>
+<td> logs/ </td>
+<td> <code>logs/debug.log</code><br> <code>logs/latest/foo.bar</code><br> <code>build/logs/foo.bar</code><br> <code>build/logs/latest/debug.log</code> </td>
+<td> Appending a slash indicates the pattern is a directory. The entire contents of any directory in the repository matching that name – including all of its files and subdirectories – will be ignored </td>
+</tr>
+<tr>
+<td> <code>logs/ </code><br> <code>!logs/important.log</code> </td>
+<td> <code>logs/debug.log</code><br> <code>logs/important.log</code> </td>
+<td> Wait a minute! Shouldn't <code>logs/important.log</code> be negated in the example on the left<br><br> Nope! Due to a performance-related quirk in Git, you <em>can not</em> negate a file that is ignored due to a pattern matching a directory </td>
+</tr>
+<tr>
+<td> <code>logs/**/debug.log </code> </td>
+<td> <code>logs/debug.log</code><br> <code>logs/monday/debug.log</code><br> <code>logs/monday/pm/debug.log</code> </td>
+<td> A double asterisk matches zero or more directories. </td>
+</tr>
+<tr>
+<td> <code>logs/*day/debug.log </code> </td>
+<td> <code>logs/monday/debug.log</code><br> <code>logs/tuesday/debug.log</code><br> <em>but not</em><br> <code>logs/latest/debug.log</code> </td>
+<td> Wildcards can be used in directory names as well. </td>
+</tr>
+<tr>
+<td> <code>logs/debug.log</code> </td>
+<td> <code>logs/debug.log</code><br> <em>but not</em><br> <code>debug.log</code><br> <code>build/logs/debug.log</code> </td>
+<td> Patterns specifying a file in a particular directory are relative to the repository root. (You can prepend a slash if you like, but it doesn't do anything special.) </td>
+</tr>
+</tbody>
+</table>
+<p>** these explanations assume your .gitignore file is in the top level directory of your repository, as is the convention. If your repository has multiple .gitignore files, simply mentally replace "repository root" with "directory containing the .gitignore file" (and consider unifying them, for the sanity of your team).*</p>
+<p>In addition to these characters, you can use # to include comments in your <code>.gitignore</code> file:</p>
+<pre><code class="hljs 1c"><span class="hljs-meta"># ignore all logs</span>
+*.<span class="hljs-built_in">log</span>
+</code></pre>
+<p>You can use \ to escape <code>.gitignore</code> pattern characters if you have files or directories containing them:</p>
+<pre><code class="hljs css"># <span class="hljs-selector-tag">ignore</span> <span class="hljs-selector-tag">the</span> <span class="hljs-selector-tag">file</span> <span class="hljs-selector-tag">literally</span> <span class="hljs-selector-tag">named</span> <span class="hljs-selector-tag">foo</span><span class="hljs-selector-attr">[01]</span><span class="hljs-selector-class">.txt</span>
+<span class="hljs-selector-tag">foo</span>\<span class="hljs-selector-attr">[01\]</span><span class="hljs-selector-class">.txt</span>
+</code></pre>
+<h2 id="shared">Shared .gitignore files in your repository</h2>
+<p>Git ignore rules are usually defined in a <code>.gitignore</code> file at the root of your repository. However, you can choose to define multiple <code>.gitignore</code> files in different directories in your repository. Each pattern in a particular <code>.gitignore</code> file is tested relative to the directory containing that file. However the convention, and simplest approach, is to define a single <code>.gitignore</code> file in the root. As your <code>.gitignore</code> file is checked in, it is versioned like any other file in your repository and shared with your teammates when you push. Typically you should only include patterns in <code>.gitignore</code> that will benefit other users of the repository.</p>
+<h2 id="personal-git-ignore-rules">Personal Git ignore rules</h2>
+<p>You can also define personal ignore patterns for a particular repository in a special file at <code>.git/info/exclude</code>. These are not versioned, and not distributed with your repository, so it's an appropriate place to include patterns that will likely only benefit you. For example if you have a custom logging setup, or special development tools that produce files in your repository's working directory, you could consider adding them to <code>.git/info/exclude</code> to prevent them from being accidentally committed to your repository.</p>
+<h2 id="global-git-ignore-rules">Global Git ignore rules</h2>
+<p>In addition, you can define global Git ignore patterns for all repositories on your local system by setting the Git <code>core.excludesFile</code> property. You'll have to create this file yourself. If you're unsure where to put your global <code>.gitignore</code> file, your home directory isn't a bad choice (and makes it easy to find later). Once you've created the file, you'll need to configure its location with <code>git config</code>:</p>
+<pre><code class="hljs routeros">$ touch ~/.gitignore
+$ git<span class="hljs-built_in"> config </span>--global core.excludesFile ~/.gitignore
+</code></pre>
+<p>You should be careful what patterns you choose to globally ignore, as different file types are relevant for different projects. Special operating system files (e.g. <code>.DS_Store</code> and <code>thumbs.db</code>) or temporary files created by some developer tools are typical candidates for ignoring globally.</p>
+<h2 id="ignoring-a-previously-committed">Ignoring a previously committed file</h2>
+<p>If you want to ignore a file that you've committed in the past, you'll need to delete the file from your repository and then add a <code>.gitignore</code> rule for it. Using the <code>--cached</code> option with <code>git rm</code> means that the file will be deleted from your repository, but will remain in your working directory as an ignored file.</p>
+<pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">echo</span> debug.log &gt;&gt; .gitignore</span>
+<span class="hljs-meta">$</span><span class="bash"> git rm --cached debug.log</span>
+rm 'debug.log'
+<span class="hljs-meta">$</span><span class="bash"> git commit -m <span class="hljs-string">"Start ignoring debug.log"</span></span>
+</code></pre>
+<p>You can omit the <code>--cached</code> option if you want to delete the file from both the repository and your local file system.</p>
+<h2 id="committing-an-ignored-file">Committing an ignored file</h2>
+<p>It is possible to force an ignored file to be committed to the repository using the <code>-f</code> (or <code>--force</code>) option with <code>git add</code>:</p>
+<pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> cat .gitignore</span>
+*.log
+<span class="hljs-meta">$</span><span class="bash"> git add -f debug.log</span>
+<span class="hljs-meta">$</span><span class="bash"> git commit -m <span class="hljs-string">"Force adding debug.log"</span></span>
+</code></pre>
+<p>You might consider doing this if you have a general pattern (like <code>*.log</code>) defined, but you want to commit a specific file. However a better solution is to define an exception to the general rule:</p>
+<pre><code class="hljs stylus">$ echo !debug<span class="hljs-selector-class">.log</span> &gt;&gt; <span class="hljs-selector-class">.gitignore</span>
+$ cat <span class="hljs-selector-class">.gitignore</span>
+*<span class="hljs-selector-class">.log</span>
+!debug<span class="hljs-selector-class">.log</span>
+$ git add debug<span class="hljs-selector-class">.log</span>
+$ git commit -m <span class="hljs-string">"Adding debug.log"</span>
+</code></pre>
+<p>This approach is more obvious, and less confusing, for your teammates.</p>
+<h2 id="stashing-an-ignored-file">Stashing an ignored file</h2>
+<p><a href="https://www.atlassian.com/git/tutorials/git-stash"><code>git stash</code></a> is a powerful Git feature for temporarily shelving and reverting local changes, allowing you to re-apply them later on. As you'd expect, by default <code>git stash</code> ignores ignored files and only stashes changes to files that are tracked by Git. However, you can invoke <a href="https://www.atlassian.com/git/tutorials/git-stash/#stashing-untracked-or-ignored">git stash with the --all option</a> to stash changes to ignored and untracked files as well.</p>
+<h2 id="debugging">Debugging .gitignore files</h2>
+<p>If you have complicated <code>.gitignore</code> patterns, or patterns spread over multiple <code>.gitignore</code> files, it can be difficult to track down why a particular file is being ignored. You can use the <code>git check-ignore</code> command with the <code>-v</code> (or <code>--verbose</code>) option to determine which pattern is causing a particular file to be ignored:</p>
+<pre><code class="hljs smali">$ git<span class="hljs-built_in"> check-ignore </span>-v debug.log
+<span class="hljs-keyword">.gitignore</span>:3:*.log debug.log
+</code></pre>
+<p>The output shows:</p>
+<pre><code class="hljs livecodeserver">&lt;<span class="hljs-built_in">file</span> containing <span class="hljs-keyword">the</span> pattern&gt; : &lt;<span class="hljs-built_in">line</span> <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> pattern&gt; : &lt;pattern&gt; &lt;<span class="hljs-built_in">file</span> name&gt;
+</code></pre>
+<p>You can pass multiple file names to <code>git check-ignore</code> if you like, and the names themselves don't even have to correspond to files that exist in your repository.</p>
+</div></div>
+<div id="related-post-sidebar" class="related-post attached">
+<div class="related-post--text">
+<p>Ready to learn Git?</p>
+<p>Try this interactive tutorial.</p>
+</div>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="button green-solid standard related-post--link">Get started now</a>
+</div>
+<div class="_footer">
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text"><div class="g-column g-6-12 g-centered">
+<div class="_hero">
+<img src="https://wac-cdn.atlassian.com/dam/jcr:cd923053-471a-4396-9c1b-ba74124b3d57/hero.svg?cdnVersion=534" alt="Inspecting a repository">
+</div>
+<h5>Next up:</h5>
+<h4>Inspecting a&nbsp;repository</h4>
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text">Start next tutorial</a>
+</div></a></div>
+<div id="related-post-sidebar-flyout" class="related-post active">
+<div class="related-post--text">
+<p>Ready to learn Git?</p>
+<p>Try this interactive tutorial.</p>
+</div>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="button green-solid standard related-post--link">Get started now</a>
+</div></div>
+</div>
+<div id="footer" class="footer is-tutorial ">
+<div class="g-row _atlassian-logo">
+<div class="g-column g-12-12">
+<h5>Powered By</h5>
+<a href="https://bitbucket.org" class="cms-link cms-link--image"><img src="https://wac-cdn.atlassian.com/dam/jcr:c3392b46-dcac-4283-8855-dd8fda6918a0/Bitbucket-white.svg?cdnVersion=534" alt="Atlassian"></a>
+</div></div>
+<div class="g-row">
+<div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6>Recommend</h6>
+<a href="https://twitter.com/home?status=Switching%20to%20%23Git?%20Use%20the%20Atlassian%20Git%20tutorials%20to%20jumpstart%20your%20training%20in%20Git%20commands%20and%20workflows.%20https://www.atlassian.com/git" class="cms-link cms-link--image social-code"><img src="https://wac-cdn.atlassian.com/dam/jcr:69b49692-9452-4dd9-aca1-df56b2bbadbd/icon-twitter.svg?cdnVersion=534" alt="Twitter"></a>
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://www.atlassian.com/git" class="cms-link cms-link--image social-code"><img src="https://wac-cdn.atlassian.com/dam/jcr:9c8da5cb-5272-4e89-9cc1-9a3f52265380/icon-facebook.svg?cdnVersion=534" alt="Facebook"></a>
+<a href="https://plus.google.com/share?url=https://www.atlassian.com/git" class="cms-link cms-link--image social-code"><img src="https://wac-cdn.atlassian.com/dam/jcr:3b592a98-07ca-48a6-8b95-e59eae543341/icon-gplus.svg?cdnVersion=534" alt="GooglePlus"></a>
+</div><div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6>Want future articles?</h6>
+<form class="newsletter">
+<input class="is-empty _input" type="email" placeholder="Enter Your Email For Git News">
+<button type="submit" class="_status icon-email-submit">Submit</button>
+</form>
+</div><div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6>Site hosted by</h6>
+<a href="/" class="cms-link cms-link--image"><img src="https://wac-cdn.atlassian.com/dam/jcr:ffd56b30-ad4d-4cb5-94be-79c1dd68b1fb/Atlassian-horizontal-white-rgb.svg?cdnVersion=534" alt="Bitbucket" class="_bitbucket-logo"></a>
+</div></div>
+<div class="g-row">
+<div class="g-column g-12-12 t-12-12 m-12-12">
+<p class="license"><a class="icon-global-cclicense" href="http://creativecommons.org/licenses/by/2.5/au/" rel="nofollow">creativecommons.org</a>Except where otherwise noted, all content is licensed under a <a href="http://creativecommons.org/licenses/by/2.5/au/" rel="nofollow">Creative Commons Attribution 2.5 Australia License</a>.</p>
+</div></div>
+</div>
+<script type="text/javascript">
+var HTTP_PREFIX = "";
+var FEATURE_FLAG_USE_GDPR = true;
+</script>
+<script type="text/javascript" src="?cdnVersion=534"></script>
+<script type="text/javascript" src="https://wac-cdn.atlassian.com/assets/build/js/gitguide/app.js?cdnVersion=534"></script>
+<script type="text/javascript">
+(function(){
+var imkt = window.imkt || (window.imkt = {});
+imkt.isEditMode = false;
+imkt.isProduction = true;
+imkt.constants = imkt.constants || {};
+imkt.constants.rootPath = "/";
+imkt.constants.assetPath = "https://wac-cdn.atlassian.com" + "/assets/";
+imkt.constants.libPath = imkt.constants.assetPath + "bower_components/";
+imkt.constants.cdnVersionQuery = "?cdnVersion=534";
+imkt.constants.isDevUser = false;
+imkt.constants.getUserAccounts = false;
+imkt.constants.headerLoginMenu = true;
+imkt.constants.public = true;
+imkt.constants.mobileBreakpoint = 640;
+})();
+</script>
+<script type="text/javascript" src="https://wac-cdn.atlassian.com/assets/build/js/react/app.js?cdnVersion=534"></script>
+<script type="text/x-component">
+{
+"type":"imkt.pages.WACPage",
+"params": {
+}
+}
+</script>
+<script>
+function initializeATLAnalytics() {
+var pageViewProperties = { contentSite: 'Git Microsite', contentType: 'Microsite', contentProduct: 'Bitbucket' };
+if (typeof ace !== 'undefined') {
+ace.analytics.Initializer.initWithPageAnalytics('kiv6wyh2nw', pageViewProperties);
+}
+imkt.utils.tracking.initProductAnalytics();
+imkt.utils.tracking.trackPage(window.location.origin + window.location.pathname);
+}
+</script>
+<script type="text/javascript" class="optanon-category-2">
+loadExternalJS("https://atl-global.atlassian.com/js/atl-global.min.js", document.body, initializeATLAnalytics);
+</script>
+
+<!-- LastRendered: Aug 27, 2019 2:39:17 PM -->
+<script src="https://atl-global.atlassian.com/js/atl-global.min.js" type="text/javascript"></script></body></html>
