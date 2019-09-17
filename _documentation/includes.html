@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<head>
+    <title>includes-cmd-example</title>
+</head>
+
+<!-- 
+lives in
+/var/www/docs/includes/includes.html
+-->
+
+<body>
+    <h1></h1>
+    <h1>INCLUDES</h1>
+    <h1></h1>
+
+    <!-- these should be processed by server side includes -->
+    <!--#echo var="DATE_LOCAL" -->
+    <p>
+        This document was last modified         <!--#flastmod file="includes.shtml" -->
+    </p>
+
+    <pre>
+        <!--#exec cmd="ls" -->
+    </pre>
+
+    <!--#include virtual="/footer.html" -->
+
+</body>
