@@ -11,19 +11,30 @@ lives in
 
 <body>
     <h1></h1>
-    <h1>INCLUDES</h1>
-    <h1></h1>
-
-    <!-- these should be processed by server side includes -->
-    <!--#echo var="DATE_LOCAL" -->
-    <p>
-        This document was last modified         <!--#flastmod file="includes.shtml" -->
-    </p>
-
+    <h1>Includes Demo</h1>
+    <br>
+    <h2>about</h2>
+    <li>this is very depricated stuff</li>
+    <li>but it is possible to list content directories or execute a script </li>
+    <br>
+    <h2>processed by server side includes</h2>
+    <li>it is now: <!--#echo var="DATE_LOCAL" --></li>
+    <li>it is now: &lt;!--#echo var="DATE_LOCAL" --&gt;</li>
+    <br>
+    <li>This document was last modified &lt;!--#flastmod file="includes.html" --&gt;. generated using server side includes.</li>
+    <li>This document was last modified <!--#flastmod file="includes.html" -->. generated using server side includes.</li>
+    <br>
+    <h2>executing a command server-side</h2>
+    <li>needs wrapping in the &lt;pre&gt; html element</li>
     <pre>
-        <!--#exec cmd="ls" -->
+        <!--#exec cmd="ls -lah" -->
+        <!--#exec cmd="ls -lah ../.." -->
     </pre>
-
+    <li>this command works as well</li>
+    <pre>
+        <!--#exec cmd="tree / -L 3/" -->
+    </pre>
+    <li>this footer inclusion does not work, unsure why. probably config</li>
     <!--#include virtual="/footer.html" -->
 
 </body>
