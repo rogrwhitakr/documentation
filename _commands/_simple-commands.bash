@@ -22,3 +22,6 @@ sudo cp web/_documentation/includes.html web/_documentation/footer.html /var/www
 # unified docs.conf
 sudo cp web/_httpd/conf.d-docs.conf /etc/httpd/conf.d/docs.conf && \
     sudo systemctl restart httpd; systemctl status httpd
+
+# copy the index file
+sudo cp web/_documentation/index.html /var/www/docs/
