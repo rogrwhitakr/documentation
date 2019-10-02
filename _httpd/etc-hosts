@@ -1,0 +1,8 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+127.0.0.1	aurora	aurora.northern-lights.one
+127.0.0.1	docs	docs.northern-lights.one
+127.0.0.1	django	django.northern-lights.one
+192.168.150.208 cortez cortez.northern-lights.one
+127.0.0.1        color-picker     color-picker.northern-lights.one 
+127.0.0.1        includes     includes.northern-lights.one 
