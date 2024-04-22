@@ -26,3 +26,7 @@ automate-the-boring-stuff/*
 django/*
 !django/
 !django/*.conf
+
+# doc to md
+doc-to-md/*
+!doc-to-md/convert-docx-to-markdown.md
