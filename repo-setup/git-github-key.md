@@ -5,7 +5,7 @@
 - create key pair
 - install tig / gitextensions
 
-```
+```sh
 # create a key
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/<key-name>
 
@@ -34,7 +34,7 @@ https://help.github.com/articles/testing-your-ssh-connection/
 
 ### Attempt to ssh to GitHub
 
-```
+```sh
 ssh -T git@github.com
 ```
 
@@ -42,6 +42,6 @@ ssh -T git@github.com
 
  -  if the auth with github works , but not the repo updates, do this:
 
-```
+```sh
 git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe
 ```
