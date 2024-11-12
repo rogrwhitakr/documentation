@@ -30,3 +30,4 @@ django/*
 # doc to md
 doc-to-md/*
 !doc-to-md/convert-docx-to-markdown.md
+!doc-to-md/convert-html-to-markdown.md

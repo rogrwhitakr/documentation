@@ -1,4 +1,7 @@
-# download / install documentation
+# install documentation
+
+```bash
+# install
 rpm-ostree install postgresql-doc
 
 # documentation is in 
@@ -6,3 +9,4 @@ rpm-ostree install postgresql-doc
 
 # access using
 file:////usr/share/doc/postgresql-docs/html/index.html
+```
