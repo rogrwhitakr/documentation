@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LayoutModificationTemplate xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification"
+    xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout"
+    xmlns:taskbar="http://schemas.microsoft.com/Start/2014/TaskbarLayout" Version="1">
+
+    <LayoutOptions StartTileGroupCellWidth="6" />
+
+    <DefaultLayoutOverride>
+        <StartLayoutCollection>
+            <defaultlayout:StartLayout>
+                <Group Name="Wichtig">
+                    <Tile Size="medium" AppUserModelID="Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" />
+                    <Tile Size="medium" AppUserModelID="Microsoft.Windows.Explorer" />
+                    <Tile Size="medium" AppUserModelID="MicrosoftTeams_8wekyb3d8bbwe!App" />
+                    <Tile Size="medium" AppUserModelID="Microsoft.CompanyPortal_8wekyb3d8bbwe!App" />
+                </Group>
+            </defaultlayout:StartLayout>
+        </StartLayoutCollection>
+    </DefaultLayoutOverride>
+
+    <CustomTaskbarLayoutCollection PinListPlacement="Replace">
+        <taskbar:TaskbarLayout>
+            <taskbar:TaskbarPinList>
+                <taskbar:UWA AppUserModelID="Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" />
+                <taskbar:UWA AppUserModelID="Microsoft.Windows.Explorer" />
+                <taskbar:UWA AppUserModelID="MicrosoftTeams_8wekyb3d8bbwe!App" />
+                <taskbar:UWA AppUserModelID="Microsoft.CompanyPortal_8wekyb3d8bbwe!App" />
+            </taskbar:TaskbarPinList>
+        </taskbar:TaskbarLayout>
+    </CustomTaskbarLayoutCollection>
+
+</LayoutModificationTemplate>
